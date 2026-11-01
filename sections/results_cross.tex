@@ -1,0 +1,122 @@
+
+\subsection{Measured hypothesis summary}
+\label{sec:r-cross}
+% Owner: A for cross-network synthesis;
+% B supplies CIT results; C supplies H2/H3 results.
+
+\Cref{tab:cross} summarizes the available evidence
+across the three networks.
+H2 and H3 have now been evaluated for PS and CM
+using timestamp-shuffled P1 null models.
+Other PS/CM experiments remain pending.
+A complete ranking of network types by temporal
+sensitivity is therefore not yet established.
+
+For H2, both PS and CM exhibit higher pooled
+burstiness than P1, but lower pooled memory.
+For H3, link persistence depends on network type
+and temporal aggregation scale.
+The split H4 verdict avoids treating densification,
+diameter shrinkage, descriptive fit and predictive
+superiority as interchangeable claims.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+
+\caption{Measured evidence across the three networks.
+H2 reports observed-minus-P1 differences in
+burstiness ($\Delta B$) and memory ($\Delta M$).
+H3 reports observed-minus-P1 adjacent-window
+Jaccard differences ($\Delta J$), using 1-hour
+windows for PS and 7-day windows for CM.
+Pending denotes unmeasured experiments;
+-- denotes inapplicability.
+CIT intervals are descriptive year resamples.}
+
+\begin{tabular*}{\textwidth}
+{@{\extracolsep{\fill}}l p{3.0cm} p{3.0cm} p{8.0cm}@{}}
+\toprule
+ID & PS & CM & Measured CIT evidence \\
+\midrule
+
+H1
+& Pending
+& Pending
+& Relative ranges: density/degree 1.798,
+clustering 2.361, LCC 1.114. \\
+
+H2
+& $\Delta B=+0.0163$;
+  $\Delta M=-0.0511$
+& $\Delta B=+0.3361$;
+  $\Delta M=-0.1290$
+& -- \\
+
+H3
+& $\Delta J=-0.1471$ (1 h)
+& $\Delta J=+0.0267$ (7 d)
+& -- \\
+
+H4a
+& --
+& --
+& $\alpha=0.714$ [0.693, 0.730];
+sublinear degree preference. \\
+
+H4b
+& --
+& --
+& Lognormal preferred; scale 6.41 yr;
+$\Delta$AIC versus exponential 537.8. \\
+
+H4c
+& --
+& --
+& $a=1.343$; $D_{90}=6$ throughout.
+Densification, no detected shrinkage. \\
+
+H4d
+& --
+& --
+& Compact fits; MAE advantage over
+linear unresolved. \\
+
+H5
+& Pending
+& Pending
+& -- \\
+
+H6
+& Pending
+& Pending
+& -- \\
+
+H7
+& Pending
+& Pending
+& -- \\
+
+\bottomrule
+\end{tabular*}
+\label{tab:cross}
+\end{table*}
+
+The H2 results support stronger-than-null
+burstiness in both PS and CM, but do not support
+stronger-than-null adjacent-gap memory.
+
+For H3, PS exhibits lower link overlap than P1
+at all tested window sizes.
+CM shows higher overlap at shorter windows,
+but the contrast reverses at 14 days.
+Therefore, temporal link persistence is not
+consistent across network types or time scales.
+
+These comparisons demonstrate that temporal
+organization affects network measurements,
+although the magnitude and direction depend
+on event definitions, network type and
+aggregation scale.
+

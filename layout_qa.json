@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-29",
+  "overleaf_base": "c3e00ad",
+  "main_pages": 11,
+  "companion_pages": 8,
+  "isolated_source_zip_compilation": "passed for main.tex and b_report.tex",
+  "undefined_references": false,
+  "overfull_boxes": false,
+  "main_figure_layouts": {
+    "framework": "1x4 full width",
+    "activity": "1x2 single column",
+    "aggregation": "1x4 full width",
+    "growth": "1x4 full width",
+    "forecast": "1x2 single column"
+  },
+  "type_sizes_pt": {
+    "body": 10,
+    "axis_labels": 6.4,
+    "ticks": 6,
+    "legends": 5.6,
+    "framework_titles": 6.8
+  },
+  "main_figure_pdf_dimensions_inches": {
+    "b_manuscript_activity.pdf": [
+      3.28125,
+      1.25
+    ],
+    "b_manuscript_aggregation.pdf": [
+      6.875,
+      1.6
+    ],
+    "b_manuscript_forecast.pdf": [
+      3.28125,
+      1.35
+    ],
+    "b_manuscript_growth.pdf": [
+      6.875,
+      1.5499999999999998
+    ],
+    "b_manuscript_framework.pdf": [
+      6.875,
+      1.25
+    ]
+  },
+  "main_pdf_sha256": "fb7e42587c01df0c1e640102e88522d2845b45f3ff42dc1dedb74a57b122793b",
+  "numerical_experiments_rerun": false,
+  "github_E_contributions": "left untouched; this report is based on current Overleaf state",
+  "revision": "80% of original figure text; compact gutters and edge-aligned tables retained",
+  "table_width_strategy": "distribute intercolumn glue via tabular* first; no resizing required",
+  "visual_review": "Detailed pages 4, 7 and 8; no clipping or overfull boxes",
+  "figure_text_scale_from_original": 0.8
+}

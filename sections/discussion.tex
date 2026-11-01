@@ -1,0 +1,104 @@
+
+%=====================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{What the static network already tells us.}
+Conclusions that survive aggregation can be read from \cref{tab:cross}.
+For CIT, the final aggregate describes degree heterogeneity, clustering and
+connected components. It cannot by itself identify preferential attachment or
+ageing: these compare new citations with prior degrees and paper ages.
+Even densification requires a sequence of historical $N(t),E(t)$ pairs, rather
+than one final graph. For PS and CM, static aggregation preserves the
+existence of links but hides their timing, repetition and turnover.
+
+\paragraph{What requires time.}
+Some conclusions need windows (Parts I and III) and others the full event order
+(Parts II and IV).
+For H2, both PS and CM exhibit higher pooled burstiness than their P1
+timestamp-shuffled baselines. The excess is relatively small for PS
+($+0.0163$) but much larger for CM ($+0.3361$).
+However, observed memory is lower than P1 in both networks,
+so stronger-than-null positive memory is not supported.
+For H3, adjacent-window link overlap also differs from the
+randomized baseline, demonstrating that static aggregation
+cannot capture temporal link turnover.
+Community reorganisation, time-respecting reachability and
+spreading speed additionally require temporal information,
+although their conclusions depend on the corresponding analyses.
+
+\paragraph{Why network types differ.}
+The three networks differ in generating mechanism (physical proximity, voluntary
+messaging, citing earlier work), time scale and edge semantics (a contact ends, a
+message is a point event, a citation persists).
+PS interactions are constrained by school schedules and physical proximity,
+whereas CM records voluntary online communication over a much longer period.
+These differences may contribute to the stronger excess burstiness in CM.
+For H3, PS has lower adjacent-hour Jaccard similarity than P1
+($0.2198$ versus $0.3668$), while CM has higher adjacent-week
+similarity ($0.0958$ versus $0.0691$).
+However, the CM contrast reverses at a 14-day window.
+Thus, temporal persistence depends on both network type and
+aggregation scale, rather than following a universal pattern.
+CIT has persistent edges and measured age-dependent target preferences.
+Direct comparisons remain conditional on differences in event definitions
+and observation periods.
+
+\paragraph{Robustness.}
+We check the choice of window size, the observation period (first vs.\ second
+half), the community-detection resolution and the choice of null model.
+For H2, PS was evaluated using both raw 20-second contact records
+and merged contact episodes. Both definitions produce higher
+burstiness and lower memory than P1, although the excess
+burstiness changes from $+0.1020$ to $+0.0163$.
+For H3, PS shows lower link overlap than P1 across all four
+tested windows, while CM changes from higher to lower overlap
+as the window increases to 14 days.
+The P2b endpoint-swap implementation passes structural invariant
+checks, but its mixing behaviour has not been fully assessed.
+
+For CIT, the full-period densification exponent is 1.343 but falls to 1.065 in
+the later half, while remaining 1.427 with cutoff 2015. Positive degree preference
+persists under all declared variants, although its exponent depends on the degree
+offset. The diameter verdict is unchanged by the sampled-source sensitivity
+checks. These are qualitative robustness findings, not evidence that coverage
+and censoring have been removed.
+
+% Owner: B (measured citation-specific interpretation).
+\paragraph{Citation-specific evidence.}
+CIT supports degree preference and age-dependent target choice, but separates two
+claims often grouped together: cumulative edges grow superlinearly, while the
+sampled effective diameter does not shrink. A three-parameter citation curve
+fits selected histories well, yet its paired MAE advantage over linear prediction
+is unresolved. Annual zero clustering is imposed by the strict-year snapshot
+construction. These examples show why representation, fitted-sample description
+and held-out prediction require separate interpretations. Late reference coverage,
+within-venue selection and right censoring constrain all citation conclusions.
+
+\paragraph{Limitations.}
+There is one dataset per network type, so generality is limited and conclusions
+hold ``in these data''. For PS and CM, pooled burstiness and memory
+may be influenced by heterogeneous edge activity.
+P1 preserves the global timestamp distribution and therefore does
+not eliminate all temporal nonstationarity.
+The short PS observation period also introduces boundary effects
+in edge-lifetime measurements.
+Window-based Jaccard similarity depends on the chosen aggregation scale.
+Although P2b preserves event participation counts, its endpoint swaps
+are not guaranteed to sample uniformly from all admissible networks.
+The 20-draw null ensembles give coarse tail resolution.
+
+CIT also has within-venue sampling, annual timestamp ties and changing reference
+coverage. Its year-block bootstrap intervals are descriptive; cumulative graph
+observations are dependent.
+Forecast selection excludes low-cited papers, and 38.6\% of short-history WSB fits
+hit parameter bounds despite optimizer success in every case; fitted collapse
+is not independent validation. The primary age-15 target is fully observed,
+whereas 2020 endpoint comparisons mix forecast horizons. Neither removes
+within-venue citation-coverage limitations.
+Boundary effects and sampling bias remain (finite two-day contact window,
+sensor participation).
+Citation networks are degenerate temporal networks (DAG, no deletion), which is
+why several methods do not apply. Each system also contains several time scales
+\citep{holme2015modern}, so a window that suits one process may hide another.
+Finally, SocioPatterns data are released under CC BY-NC-SA.
