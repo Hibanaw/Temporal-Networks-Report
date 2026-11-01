@@ -1,103 +1,40 @@
-\subsection{Activity patterns}
-\label{sec:r-activity}
-
-We evaluate H2 (bursty activity and memory) and H3 (repetition, persistence, and turnover) in the Primary School (PS) face-to-face contact network and directed CollegeMsg (CM) network. PS contains 125,773 20-second proximity records over approximately two school days; CM contains 59,798 messages after removing 37 exact duplicates, over approximately 193 days. PS edges are undirected, whereas CM edges are ordered sender--receiver pairs. For PS burstiness and repetition, consecutive 20-second records for the same pair are merged into contact starts; lifetime and window overlap use the original records. CM messages are not merged. Unless otherwise noted, P1 denotes 20 seeded timestamp permutations (seeds 0--19); displayed null means and standard deviations summarize these realizations.
-
-\paragraph{H2: Burstiness and memory.}
-For each edge, consecutive inter-event gaps are computed; pooled burstiness is $B=(\sigma-\mu)/(\sigma+\mu)$, using the pooled gap mean $\mu$ and population standard deviation $\sigma$. Memory $M$ is the Pearson correlation between consecutive gaps within edges, pooled over eligible adjacent gap pairs. These pooled statistics are not averages of per-edge coefficients. P1 retains the global timestamp multiset and each event's endpoints but randomizes the association between interactions and times.
-
-\begin{table}[t]
-\centering\small
-\begin{tabular}{@{}llrrr@{}}
-\toprule
-Network & Metric & Observed & P1 mean & P1 SD \\
+\subsection{Activity patterns}\label{sec:r-activity}
+% Owner: C; reconstructed reproducible code in src/stats.py and scripts/run_ac.py.
+Inter-event intervals are pooled within dyads. In PS, contiguous 20-second contacts
+are merged into episode onsets before burstiness, memory and repeated-tie analysis.
+Memory pools adjacent interval pairs within each tie, without joining different ties.
+Lifetimes and Jaccard use the original cleaned records. P1 uses seeds 0--19;
+coincident events produced by timestamp shuffling are retained to preserve message
+counts. Canonical input ordering fixes each seeded realization; null values below
+are recomputed rather than copied from earlier rounded report tables.
+\begin{table}[!htbp]\centering\small
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llrr@{}}
+\toprule Network & Metric & Real & P1 mean $\pm$ SD \\
 \midrule
-PS & $B$ & 0.534641 & 0.518389 & 0.000434 \\
-PS & $M$ & 0.019936 & 0.070996 & 0.001643 \\
-CM & $B$ & 0.581072 & 0.245000 & 0.001302 \\
-CM & $M$ & 0.100402 & 0.229400 & 0.005661 \\
-\bottomrule
-\end{tabular}
-\caption{Observed pooled activity statistics compared with 20 P1 timestamp-shuffled realizations.}
-\label{tab:c-h2}
+PS & $B$ & 0.535 & $0.5184\pm0.0004$ \\
+PS & $M$ & 0.020 & $0.0710\pm0.0016$ \\
+PS & Repeated ties & 0.625 & $0.6568\pm0.0001$ \\
+PS & Jaccard & 0.220 & $0.3668\pm0.0010$ \\
+CM & $B$ & 0.581 & $0.2451\pm0.0012$ \\
+CM & $M$ & 0.100 & $0.2288\pm0.0057$ \\
+CM & Repeated ties & 0.495 & $0.4949\pm0.0000$ \\
+CM & Jaccard & 0.096 & $0.0690\pm0.0009$ \\
+\bottomrule\end{tabular*}
+\caption{Measured activity and persistence. Jaccard uses 1-hour PS and 7-day CM windows,
+including empty windows when their union is nonempty.}\label{tab:burst}
 \end{table}
-
-Observed burstiness exceeds the P1 mean in both PS ($\Delta B=+0.016252$) and CM ($\Delta B=+0.336072$). In contrast, observed memory is positive but lower than P1 in PS ($\Delta M=-0.051059$) and CM ($\Delta M=-0.128998$). Thus H2's burstiness component is supported under this operationalization, but stronger-than-null adjacent-gap memory is not. This does not imply absence of temporal dependence. The differences exceed the spread of the 20 null realizations, but with 20 randomizations the smallest plus-one empirical one-sided $p$-value is $1/21\approx0.0476$.
-
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{c_fig1.png}
-\caption{PS inter-event time density: observed contact starts and one P1 realization (log--log axes).}
-\label{fig:c-ps-gaps}
+\includegraphics[width=\linewidth]{c_activity_reproduced.pdf}
+\caption{Pooled burstiness and memory relative to 20 P1 samples.}
+\label{fig:activity-reproduced}
 \end{figure}
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{c_fig2.png}
-\caption{CM inter-event time density: observed messages and one P1 realization (log--log axes).}
-\label{fig:c-cm-gaps}
-\end{figure}
-
-\paragraph{H3: Repetition, lifetime, and turnover.}
-Repetition is the fraction of distinct edges with at least two PS contact starts or two CM messages. Edge lifetime is the time from first to last event, including zero for single-event edges. Adjacent-window link persistence is the mean Jaccard overlap of edge sets in consecutive nonempty-union windows; the default windows are one hour for PS and seven days for CM.
-
-\begin{table}[t]
-\centering\small
-\begin{tabular}{@{}llrr@{}}
-\toprule
-Network & Metric & Observed & P1 mean \\
-\midrule
-PS & Repetition fraction & 0.625346 & 0.656763 \\
-PS & Mean lifetime (s) & 19185.60 & 29798.21 \\
-PS & Jaccard (1 h) & 0.219756 & 0.366826 \\
-CM & Repetition fraction & 0.494925 & 0.494925 \\
-CM & Mean lifetime (days) & 4.755748 & 30.031782 \\
-CM & Jaccard (7 d) & 0.095771 & 0.069089 \\
-\bottomrule
-\end{tabular}
-\caption{H3 observed statistics and P1 null means (20 realizations).}
-\label{tab:c-h3}
-\end{table}
-
-PS repetition is lower than P1 partly because shuffling breaks continuous 20-second contacts into additional episodes. CM repetition is invariant under P1 because each ordered pair retains its message count. Both networks have shorter observed mean edge lifetimes than P1, indicating temporal concentration relative to timestamp shuffling rather than necessarily weaker social ties. The default-window Jaccard contrast is negative for PS and positive for CM; therefore persistence is not uniformly stronger than P1.
-
-\paragraph{Window-size sensitivity.}
-\begin{table}[t]
-\centering\small
-\begin{tabular}{@{}llrrr@{}}
-\toprule
-Network & Window & Real $J$ & P1 $J$ & $\Delta J$ \\
-\midrule
-PS & 15 min & .2340 & .2568 & -.0228 \\
-PS & 30 min & .2169 & .3220 & -.1050 \\
-PS & 60 min & .2198 & .3668 & -.1471 \\
-PS & 120 min & .2021 & .3462 & -.1442 \\
-CM & 1 day & .0893 & .0181 & +.0712 \\
-CM & 3 days & .0997 & .0405 & +.0591 \\
-CM & 7 days & .0958 & .0691 & +.0267 \\
-CM & 14 days & .0892 & .1060 & -.0168 \\
-\bottomrule
-\end{tabular}
-\caption{Adjacent-window Jaccard sensitivity to temporal aggregation; P1 means use 20 permutations per window.}
-\label{tab:c-windows}
-\end{table}
-
-PS overlap remains below P1 at all four scales. In CM the contrast changes sign: observed overlap exceeds P1 for one-, three-, and seven-day windows but falls below it at 14 days. Claims of greater real-world link persistence therefore depend on temporal aggregation.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{c_fig6.png}
-\caption{PS adjacent-window Jaccard across aggregation windows, observed versus P1 mean.}
-\label{fig:c-ps-window}
-\end{figure}
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{c_fig7.png}
-\caption{CM adjacent-window Jaccard across aggregation windows, observed versus P1 mean.}
-\label{fig:c-cm-window}
-\end{figure}
-
-\paragraph{Sensitivity to PS event definition.}
-We also compared raw 20-second contact records with merged contact starts, recalculating observed and P1 statistics using 20 timestamp permutations. With raw records, $B_{\rm real}=0.6279$ versus $B_{\rm P1}=0.5260$ and $M_{\rm real}=0.0339$ versus $M_{\rm P1}=0.0737$. With merged episodes, the corresponding values are $0.5346$ versus $0.5184$ for $B$ and $0.0199$ versus $0.0710$ for $M$. The directions of both contrasts are unchanged, but the excess burstiness changes from $+0.1020$ to $+0.0163$, demonstrating sensitivity in effect magnitude.
-
+In PS, $\Delta B=+0.0163$ and $\Delta M=-0.0511$. Mean tie lifetime is 0.444 days, versus 0.690 days under P1.
+In CM, $\Delta B=+0.3360$ and $\Delta M=-0.1284$. Mean tie lifetime is 4.756 days, versus 30.028 days under P1.
 \paragraph{Verdict on H2 and H3.}
-The burstiness component of H2 is supported relative to P1 in both datasets; stronger positive memory relative to P1 is not. H3 does not receive a universal positive persistence verdict: repetition depends on event semantics, lifetimes are shorter than P1 in both datasets, and link-overlap contrasts depend on network type and window length. Pooling gaps across heterogeneous edges, the short PS observation span, window alignment, and the limited number of null replicates constrain inference.
+Burstiness exceeds P1 in both datasets, while pooled positive memory is weaker than P1.
+Thus H2 has a mixed verdict. H3 depends on the statistic: real ties are temporally
+concentrated, and adjacent overlap is below P1 in PS but above it in CM at the primary widths.
+The PS lifetime is recomputed over canonical undirected dyads; the earlier report's
+lifetime value is superseded by this shared-interface calculation. Pooling across
+heterogeneous ties and short observation windows limit generalization.

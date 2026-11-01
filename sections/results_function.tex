@@ -1,24 +1,11 @@
-\subsection{Paths, centrality and spreading}
-\label{sec:r-function}
-
-% Owner: D
-%\paragraph{Reachability.}
+\subsection{Paths, centrality and spreading}\label{sec:r-function}
 \input{sections/D1}
-
-
-
-
-% Owner: E
-\paragraph{Centrality.}
-\expect{[Expected] Rankings by static and temporal closeness are positively
-correlated but far from identical (Kendall $\tau$ clearly below 1), with the
-largest differences for nodes active only early or late.}
-
-% Owner: D
-%\paragraph{Spreading.}
+\input{sections/results_e_centrality}
 \input{sections/D2}
-
-
 \paragraph{Verdict on H6 and H7.}
-\outline{Supported / not supported / depends on network type or window.}
-\expect{[Expected] H6 supported in both networks. H7 supported, strongest for CM.}
+H6's reachability component is supported under the multi-start protocol in both datasets;
+rankings show a partial effect, with correlated rankings but different top nodes.
+H7 is conditional on parameters and the reference model. PS peaks later under its
+primary setting; CM peaks earlier than P1 across the four tested full-period settings and is close
+to P2. The claim that slowing is strongest in CM is therefore not supported.
+Peak timing among major outbreaks does not by itself measure population-wide epidemic speed.

@@ -12,14 +12,25 @@
 \usepackage[capitalize]{cleveref}
 
 \graphicspath{{figures/}{../figures/}}
+% Permit measured result tables to share pages with text.
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\dblfloatpagefraction}{0.8}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{5}
+\setcounter{totalnumber}{10}
+
 
 % Outline notes; set \showoutline to false to hide them in the final version.
-\newif\ifshowoutline \showoutlinetrue
+\newif\ifshowoutline \showoutlinefalse
 \newcommand{\outline}[1]{\ifshowoutline{\color{gray}\small\itshape [Outline] #1\par}\fi}
 
 % Expected (not yet measured) results: shown in blue; replace with measured text, then
 % delete the macro. Set \showexpected to false to hide them.
-\newif\ifshowexpected \showexpectedtrue
+\newif\ifshowexpected \showexpectedfalse
 \newcommand{\expect}[1]{\ifshowexpected{\color{blue!60!black}#1}\fi}
 % Placeholder for a result figure that is not produced yet: \figph{width}{height}{text}
 \newcommand{\figph}[3]{\fbox{\parbox[c][#2][c]{\dimexpr#1-2\fboxsep-2\fboxrule\relax}{\centering\small\color{gray}#3}}}
@@ -48,15 +59,17 @@ activity patterns, structural evolution and function---distil seven testable
 hypotheses (H1--H7), and define a common pipeline of window analysis,
 randomized reference models and dynamic-community tracking on three networks of
 different type and time scale: face-to-face contacts in a primary school, online
-messaging among students, and a computer-science citation network. The planned cross-network comparison
+messaging among students, and a computer-science citation network. The cross-network comparison
 uses normalised \emph{time effects} rather than raw metrics.
 The completed citation-network study contains 19,150 papers and 73,269
 strictly older-target citations. It supports sublinear degree preference and
 age-dependent citation choice, with a densification exponent of 1.343, but no
 detected shrinkage of the sampled effective diameter. A three-parameter citation
 model fits selected histories well without an established MAE advantage over
-linear extrapolation. Contact and messaging experiments remain pending, so a
-cross-network ranking of temporal sensitivity is not yet inferred.
+linear extrapolation. In contacts and messages, window choice changes structural metrics and time
+ordering reduces reachability. Event-started SIR slows relative to timestamp
+shuffle in primary PS settings but peaks earlier in CM. These hypothesis-specific
+effects do not establish one overall ranking of network types.
 \end{abstract}
 
 \input{sections/intro}

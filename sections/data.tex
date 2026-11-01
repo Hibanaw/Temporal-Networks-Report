@@ -12,7 +12,7 @@ We use one network per type, chosen to differ in edge meaning, generating mechan
 Type & Dataset & $N$ & Events & Span & Res. \\
 \midrule
 Contact & Primary school (PS) & 242 & 125\,773 & 2 d & 20 s \\
-Comm. & CollegeMsg (CM) & 1\,899 & 59\,835 & 193 d & 1 s \\
+Comm. & CollegeMsg (CM) & 1\,899 & 59\,798 & 193 d & 1 s \\
 Citation & DBLP--DB (CIT) & 19\,150 & 73\,269 & 50 yr & 1 yr \\
 \bottomrule
 \end{tabular*}
@@ -49,7 +49,7 @@ motivates a cutoff-2015 sensitivity check and cautions about coverage and censor
 \paragraph{Preprocessing.}
 All data are converted to a common event format $(u,v,t)$ with integer time stamps
 (seconds or years) plus a table of node labels. Self-loops and exact duplicate
-events are removed, and the first and last partial windows are trimmed. Each source
+events are removed. PS/CM windows retain the final partial window and include empty windows. Each source
 has known limits: citation data have year-level resolution, the contact data cover only
 two days, and the sensors sample only participants who wear them. The three datasets
 differ in edge meaning (proximity, message, citation), directedness and time scale
