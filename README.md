@@ -25,3 +25,7 @@ pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build main.te
 `report_sources.zip` bundles source files and figures. Draft expectation/outline
 macros are disabled. Table values are regenerated from measured CSV files;
 missing and inapplicable results are never replaced with expected values.
+
+The experiment repository now exposes this repository at `report/` as a Git
+submodule. [MERGE_AUDIT.md](MERGE_AUDIT.md) records the content reconciliation;
+the earlier ordinary-directory copy is superseded.
