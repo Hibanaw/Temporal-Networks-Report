@@ -8,7 +8,7 @@ and observation/null-count sensitivity. See [SUPPLEMENT_NOTES.md](SUPPLEMENT_NOT
 for definitions, limitations and the reproducible generation workflow.
 
 The experiment source and result tables are in
-[Hibanaw/Temporal-Networks](https://github.com/Hibanaw/Temporal-Networks/tree/supplement-experiments).
+[Hibanaw/Temporal-Networks](https://github.com/Hibanaw/Temporal-Networks/tree/main).
 This GitHub repository is the report delivery target; no Overleaf direct-Git
 connection is required to review or build it.
 

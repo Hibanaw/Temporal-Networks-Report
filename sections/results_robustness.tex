@@ -5,19 +5,24 @@
 \midrule
 PS & H1 density & 3.359 & 2.596 & 2.487 & -- \\
 CM & H1 density & 3.862 & 3.623 & 3.478 & -- \\
+PS & H1 clustering & 1.628 & 0.921 & 0.959 & -- \\
 PS & H2 $\Delta B$ & 0.016 & 0.116 & 0.120 & 0.016 \\
 CM & H2 $\Delta B$ & 0.336 & 0.381 & 0.313 & 0.336 \\
+PS & H3 $\Delta J$ & -0.147 & -0.192 & -0.184 & -0.147 \\
+CM & H3 $\Delta J$ & 0.027 & -0.039 & -0.022 & 0.027 \\
 PS & H6 $R$ & 0.866 & 0.815 & 0.765 & 0.866 \\
 CM & H6 $R$ & 0.205 & 0.314 & 0.177 & 0.205 \\
-PS & H7 ratio & 1.160 & 1.081 & 1.095 & 1.161 \\
-CM & H7 ratio & 0.888 & 0.856 & 0.865 & 0.884 \\
+PS & H7 ratio P1 & 1.160 & 1.081 & 1.095 & 1.161 \\
+CM & H7 ratio P1 & 0.888 & 0.856 & 0.865 & 0.884 \\
+PS & H7 ratio P2 & 1.214 & 1.142 & 1.160 & 1.212 \\
+CM & H7 ratio P2 & 0.995 & 0.961 & 0.877 & 0.999 \\
 PS & H5 NMI & 0.816 & 0.812 & 0.818 & 0.816 \\
 CM & H5 NMI & 0.519 & 0.374 & 0.663 & 0.519 \\
 CIT & H4 $\alpha$ & 0.714 & 0.684 & 0.721 & 0.714 \\
 \bottomrule\end{tabular*}
 \caption{Elapsed-time halves for PS/CM and analysis-year halves for CIT. A uses no null.
 The 60-null run nests the first 20; H7 ratios condition on major outbreaks. A and E real
-values do not depend on null count, while H2 differences and H7 ratios do.}\label{tab:robust-halves}
+values do not depend on null count, while H2/H3 differences and H7 ratios do. H2/H3 are real minus P1; H5/H6 show observed NMI/$R$, and H7 shows conditional ratios.}\label{tab:robust-halves}
 \end{table}
 Primary H7 ratios remain on the same side of one under the 20/60 comparison:
 PS changes from 1.160 to 1.161 and CM from 0.888 to 0.884. Both primary half-period
@@ -27,6 +32,11 @@ at PS $\beta=.02$, $D=4$ h the full-period ratio moves from 1.0005 (20 nulls) to
 setting peaks earlier than P1 in the first half (ratio 0.874) despite a full-period
 ratio above one. In CM's second half, two settings produce no major real outbreaks
 and their conditional peak ratios are undefined; these are not treated as zero.
+The primary CM setting remains defined in that half (major-outbreak probability 0.360).
+CM's H3 contrast reverses from $+0.027$ in the full interval to $-0.039/-0.022$
+in the halves. PS's H2 excess grows from 0.016 to 0.116/0.120, while its clustering
+sensitivity drops from 1.628 to 0.921/0.959. These are substantive interval
+sensitivities even when increasing the null ensemble from 20 to 60 changes little.
 Individual realizations, sample SDs and 20/60 changes are retained in the supplementary
 CSV files. Splitting changes node populations and the time available for paths and
 outbreaks, so agreement of signs is more informative than equality of raw effect sizes.

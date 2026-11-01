@@ -21,7 +21,7 @@ CM & Repeated ties & 0.495 & $0.4949\pm0.0000$ \\
 CM & Jaccard & 0.096 & $0.0690\pm0.0009$ \\
 \bottomrule\end{tabular*}
 \caption{Measured activity and persistence. Jaccard uses 1-hour PS and 7-day CM windows,
-including empty windows when their union is nonempty.}\label{tab:burst}
+including empty windows when their union is nonempty. The CM repeated-tie row is descriptive only: it is P1-invariant.}\label{tab:burst}
 \end{table}
 \begin{figure}[!htbp]
 \centering
@@ -32,9 +32,29 @@ including empty windows when their union is nonempty.}\label{tab:burst}
 In PS, $\Delta B=+0.0163$ and $\Delta M=-0.0511$. Mean tie lifetime is 0.444 days, versus 0.690 days under P1.
 In CM, $\Delta B=+0.3360$ and $\Delta M=-0.1284$. Mean tie lifetime is 4.756 days, versus 30.028 days under P1.
 \paragraph{Verdict on H2 and H3.}
-Burstiness exceeds P1 in both datasets, while pooled positive memory is weaker than P1.
-Thus H2 has a mixed verdict. H3 depends on the statistic: real ties are temporally
-concentrated, and adjacent overlap is below P1 in PS but above it in CM at the primary widths.
+For PS, H2's excess burstiness is small in absolute terms over the full interval:
+$B=0.535$ versus P1 0.518 ($\Delta B=0.016$), despite being separated from the
+small null dispersion. It grows to 0.116 and 0.120 in the two day-length halves
+(real/null 0.404/0.288 and 0.395/0.275). The magnitude is therefore interval-dependent;
+inter-day inactivity is a plausible contributor, not a separately identified cause.
+CM has a larger excess; positive pooled memory remains weaker than P1 in both datasets.
+H2 has a mixed, interval-dependent verdict rather than uniform strong support.
+
+CM's H3 overlap contrast reverses with the observation interval: full-period
+Jaccard is 0.096 versus P1 0.069 ($+0.027$), but first-half 0.074 versus 0.113
+($-0.039$) and second-half 0.118 versus 0.140 ($-0.022$).
+\emph{CM persistence is observation-interval-dependent.} The full-period result
+does not support an interval-independent claim of more persistent real ties.
+P1 redistributes timestamps across each selected interval; changes in duration,
+activity and window composition alter the null baseline. This explanation is
+consistent with the comparisons but is not isolated causally by them.
+
+\paragraph{P1 invariants are descriptive only.}
+The raw-record repeated-event fraction in both datasets and CM's repeated-tie
+fraction are invariant under P1 by construction. Their near-zero null SDs are
+floating-point effects, not strong evidence for H3; they are not used as null-test
+evidence. PS's episode-based repeated-tie fraction can change because P1 breaks
+contiguous contact episodes.
 The PS lifetime is recomputed over canonical undirected dyads; the earlier report's
 lifetime value is superseded by this shared-interface calculation. Pooling across
 heterogeneous ties and short observation windows limit generalization.

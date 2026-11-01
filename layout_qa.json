@@ -1,14 +1,15 @@
 {
-  "pages": 18,
+  "pages": 20,
   "overfull_boxes": 0,
   "undefined_references_or_citations": 0,
-  "visual_review": "All-page contact sheet and detailed review of revised result/cross-summary pages",
-  "tests_passed": 51,
-  "experiment_branch": "supplement-experiments",
+  "visual_review": "Full contact sheet and detailed final review of changed SIR, robustness and cross-summary pages",
+  "tests_passed": 55,
+  "experiment_branch": "main",
   "hpc_jobs": [
     37530,
     37532,
     37534
   ],
-  "pdf_sha256": "32ddc5e4d6975579031141e094c9f039f740ebd8d203c663732a6cde15702be9"
+  "pdf_sha256": "1f4af54e1d856d4f571dfa3f082bb0d068d02794a43d21c67d5eb3b76ff055d6",
+  "review": "Uniform raw differences; separate H7 ratios; interval/null/metric-dependent verdicts; scientific experiment tables unchanged"
 }

@@ -15,9 +15,10 @@ existence of links but hides their timing, repetition and turnover.
 \paragraph{What requires time.}
 Some conclusions need windows (Parts I and III) and others the full event order
 (Parts II and IV).
-For H2, both PS and CM exhibit higher pooled burstiness than their P1
-timestamp-shuffled baselines. The excess is relatively small for PS
-($+0.0163$) but much larger for CM ($+0.3361$).
+For H2, the full-period excess burstiness is small for PS ($+0.0163$),
+although larger than the null dispersion, versus $+0.3360$ for CM. PS's excess
+increases to 0.116/0.120 in the day-length halves; its magnitude is interval-dependent,
+not uniform strong evidence across temporal scopes.
 However, observed memory is lower than P1 in both networks,
 so stronger-than-null positive memory is not supported.
 For H3, adjacent-window link overlap also differs from the
@@ -36,10 +37,12 @@ whereas CM records voluntary online communication over a much longer period.
 These differences may contribute to the stronger excess burstiness in CM.
 For H3, PS has lower adjacent-hour Jaccard similarity than P1
 ($0.2198$ versus $0.3668$), while CM has higher adjacent-week
-similarity ($0.0958$ versus $0.0691$).
-However, the CM contrast reverses at a 14-day window.
-Thus, temporal persistence depends on both network type and
-aggregation scale, rather than following a universal pattern.
+similarity ($0.0958$ versus $0.0690$) over the full period. Crucially, the CM
+contrast is negative in both halves: 0.074 versus 0.113 and 0.118 versus 0.140.
+Thus the full-period positive contrast does not establish generally more persistent
+CM ties. P1 redistributes events across the selected period, so the baseline changes
+with observation duration, activity and window composition. The comparisons do not
+isolate one of these as the sole cause.
 CIT has persistent edges and measured age-dependent target preferences.
 Direct comparisons remain conditional on differences in event definitions
 and observation periods.
@@ -47,13 +50,23 @@ and observation periods.
 \paragraph{Robustness.}
 We check the choice of window size, the observation period (first vs.\ second
 half), the community-detection resolution and the choice of null model.
-For H2, PS was evaluated using both raw 20-second contact records
-and merged contact episodes. Both definitions produce higher
-burstiness and lower memory than P1, although the excess
-burstiness changes from $+0.1020$ to $+0.0163$.
-For H3, PS shows lower link overlap than P1 across all four
-tested windows, while CM changes from higher to lower overlap
-as the window increases to 14 days.
+PS's H2 excess is small over the full period and larger in the halves; PS
+clustering sensitivity also falls from 1.628 to 0.921/0.959. CM's H3 persistence
+contrast reverses in the halves. These observation sensitivities must be retained
+even though the 20/60 null comparison changes the primary results little.
+Raw repeated-event fractions for both datasets, and CM repeated-tie fraction,
+are P1 invariants; their near-zero null SDs are not evidence for temporal effects.
+For H7, primary PS peak ratios remain above one versus both nulls, but the lowest
+transmission probability has almost no P1 peak effect and the one-hour first-half
+setting reverses direction. CM peaks earlier than P1 and close to P2; at high
+transmission probability, half-final-size and peak times have opposite contrasts.
+Both timings condition on network-specific major-outbreak subsets. CM's second
+half has undefined peaks for two weak settings, while the primary setting has
+major-outbreak probability 0.360. Therefore CM does not support a general slowdown.
+PS's smaller full-period final size versus its halves is protocol-sensitive:
+reselecting seeds by event position changes residual horizons and seed populations.
+Schedule and censoring effects are plausible contributors, not separately proven
+by these CSV comparisons.
 The P2b endpoint-swap implementation passes structural invariant
 checks, but its mixing behaviour has not been fully assessed.
 
@@ -83,7 +96,10 @@ P1 preserves the global timestamp distribution and therefore does
 not eliminate all temporal nonstationarity.
 The short PS observation period also introduces boundary effects
 in edge-lifetime measurements.
-Window-based Jaccard similarity depends on the chosen aggregation scale.
+Window-based Jaccard similarity depends on both aggregation scale and observation
+interval. H1 values use different grids and definitions and cannot rank datasets;
+density/degree sensitivities are redundant. Reachability includes remaining-horizon
+boundary effects and is not a pure topological measure.
 Although P2b preserves event participation counts, its endpoint swaps
 are not guaranteed to sample uniformly from all admissible networks.
 The 20-draw null ensembles give coarse tail resolution.

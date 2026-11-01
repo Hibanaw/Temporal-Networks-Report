@@ -223,6 +223,14 @@ H5 mean consecutive-snapshot NMI and dynamic-vs-static NMI;
 H6 reachability ratio $R$ and Kendall $\tau$(static, temporal);
 H7 slowdown $T_{\mathrm{real}}/T_{\mathrm{null}}$, where $T$ is the time to the epidemic peak.
 
+The cross-network CSV uses one arithmetic definition: $\mathrm{effect}=x_{\rm real}-\overline{x}_{\rm null}$
+in the underlying metric's units. H1 has no null and its effect is undefined;
+its descriptive sensitivity is kept in the value field. H7 stores actual peak delays
+and their difference in seconds, with both P1/P2 ratios in a separate ratio field.
+A shared subtraction operator does not standardize different hypotheses or make
+H1's different grids comparable. P1 invariants are descriptive quantities, never
+independent evidence from a null test. The report labels its H7 ratios explicitly.
+
 \subsection{Implementation}
 All code is in Python. We use NetworkX for static graphs, a strict-time all-source
 event-scan algorithm for earliest arrivals, NumPy with optional Numba acceleration

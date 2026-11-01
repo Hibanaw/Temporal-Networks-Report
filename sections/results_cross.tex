@@ -6,20 +6,31 @@ differ, so the table does not define a single overall sensitivity score.
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrr@{}}
 \toprule ID & Measure & PS & CM & CIT \\
 \midrule
-H1 & Density range/mean & 3.359 & 3.862 & 1.798 \\
-H2 & $B-B_{P1}$ & 0.016 & 0.336 & -- \\
-H3 & Adjacent Jaccard & 0.220 & 0.096 & -- \\
-H4 & PA $\alpha$ & -- & -- & 0.714 \\
-H5 & Adjacent NMI & 0.816 & 0.519 & -- \\
-H6 & Reach ratio $R$ & 0.866 & 0.205 & -- \\
-H7 & Peak ratio vs P1 & 1.160 & 0.888 & -- \\
+H1 & Density sensitivity (descriptive) & 3.359 & 3.862 & 1.798 \\
+H2 & $\Delta B$ vs P1 & 0.016 & 0.336 & -- \\
+H3 & $\Delta J$ vs P1 & -0.147 & 0.027 & -- \\
+H4 & $\Delta\alpha$ vs P3a & -- & -- & 0.713 \\
+H5 & $\Delta$ adjacent NMI vs P1 & -0.096 & 0.098 & -- \\
+H6 & $\Delta R$ vs P1 & -0.134 & -0.120 & -- \\
+H6 & $\Delta R$ vs P2 & -0.134 & -0.031 & -- \\
+H7 & Peak ratio vs P1 (conditional) & 1.160 & 0.888 & -- \\
+H7 & Peak ratio vs P2 (conditional) & 1.214 & 0.995 & -- \\
+
 \bottomrule\end{tabular*}
-\captionof{table}{Measured H1--H7 primary effects; -- means inapplicable. H4 uses PA as its scalar
-representative; ageing, densification and predictive diagnostics retain separate verdicts.
-H5 uses 15-min PS/7-day CM windows; H7 uses the first parameter setting and major outbreaks.}
+\captionof{table}{H1 is descriptive; H2--H6 are real minus the named null mean, in their
+respective metric units. H7 explicitly reports both primary-setting peak ratios,
+conditional on major outbreaks; its CSV effect column instead contains real minus
+null peak delay in seconds. -- denotes inapplicability, not a zero effect.
+H1 uses different grids/definitions (PS 5 min--1 day, CM 1 h--30 days, CIT trailing
+1/2/5/10-year windows); its three values cannot be ranked. Density and mean total
+degree sensitivities are algebraically redundant. H4 represents PA only; the other
+H4 verdicts remain separate. H5 uses 15-min PS/7-day CM windows.}
 \label{tab:cross}\end{center}
-H1 is supported as window dependence. H2 separates excess burstiness from weaker-than-null
-memory. H3 and H5 depend on network type and window. H6 shows loss of reachable pairs,
-with partial ranking disagreement. H7 slowing is supported in primary PS, but not CM.
-The window grids, node universes, edge semantics and conditioning must accompany these values.
+A common subtraction operator does not create a common substantive effect scale.
+H2's PS excess is small over the full interval and changes in the halves.
+CM's positive full-period H3 overlap contrast reverses in both halves; its verdict
+is observation-interval-dependent. H5 has dataset-specific structural evidence;
+H6 shows lower reachability than both nulls under the finite-horizon protocol.
+H7 has conditional primary-setting support in PS and no general slowdown support
+in CM; neither choice of null nor the conditioning on major outbreaks may be hidden.
 \end{@twocolumnfalse}]
