@@ -6,7 +6,7 @@ assets remain available for the companion report and numerical audit.
 """
 import json
 import os
-import shutil
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -18,59 +18,30 @@ from matplotlib.text import Text
 import numpy as np
 import pandas as pd
 
-ROOT = Path(os.environ.get('PC5253_PROJECT_ROOT', Path(__file__).resolve().parents[1]))
-OUT = ROOT / 'results/b'
-FIG = ROOT / 'figures'
-COL = {'real': '#173F5F', 'annual': '#C36A2B', 'P3a': '#D27D2D',
-       'P3b': '#2C8A78', 'linear': '#2C8A78'}
-plt.rcParams.update({
-    'font.size': 8, 'axes.labelsize': 8, 'axes.titlesize': 8,
-    'xtick.labelsize': 7.5, 'ytick.labelsize': 7.5, 'legend.fontsize': 7,
-    'axes.spines.top': False, 'axes.spines.right': False,
-    'axes.linewidth': .6, 'lines.linewidth': 1.1,
-    'axes.labelpad': 2, 'axes.titlepad': 3, 'xtick.major.pad': 2, 'ytick.major.pad': 2,
-    'pdf.fonttype': 42, 'savefig.dpi': 220,
-})
+ROOT = Path(os.environ.get('PC5253_PROJECT_ROOT', Path(__file__).resolve().parents[2]))
+sys.path.insert(0, str(ROOT / 'scripts'))
+import figstyle  # noqa: E402
+
+OUT = Path(os.environ.get('PC5253_B_RESULTS', ROOT / 'results/b'))
+COL = {'real': figstyle.REAL, 'annual': figstyle.NULL, 'P3a': figstyle.NULL,
+       'P3b': figstyle.THIRD, 'linear': figstyle.THIRD}
+figstyle.apply()
 
 
 def save(fig, name):
-    # Reduce text only, then let constrained layout recompute the gutters.
-    for text in fig.findobj(Text):
-        text.set_fontsize(text.get_fontsize() * .80)
-    fig.canvas.draw()
-    FIG.mkdir(exist_ok=True)
-    destination = ROOT / 'report/figures'
-    destination.mkdir(exist_ok=True)
-    for ext in ['pdf', 'png']:
-        fig.savefig(FIG / f'{name}.{ext}')
-    shutil.copy2(FIG / f'{name}.pdf', destination / f'{name}.pdf')
-    plt.close(fig)
+    figstyle.save(fig, name, ROOT)
 
 
 def axes_grid(rows, cols, width, height):
-    fig, axs = plt.subplots(rows, cols, figsize=(width, height),
-                            layout='constrained', squeeze=False)
-    fig.set_constrained_layout_pads(w_pad=.004, h_pad=.008, wspace=.025, hspace=.04)
+    fig, axs = figstyle.grid(None, rows, cols, width, height)
     return fig, axs.flatten()
 
 
 def main():
     agg = pd.read_csv(OUT / 'aggregation.csv')
     win = pd.read_csv(OUT / 'windows.csv')
-    nodes = pd.read_csv(ROOT / 'data/processed/CIT/nodes.csv')
 
-    fig, axs = axes_grid(1, 2, 3.28125, 1.25)
-    d = agg[agg['mode'] == 'annual']
-    axs[0].bar(d.year, d.E, color=COL['real'], width=.85)
-    axs[1].plot(nodes.groupby('year').size(), color=COL['P3b'])
-    for ax, title, label in zip(axs, ['(a) Citations', '(b) Publications'],
-                                ['Citations / year', 'Papers / year']):
-        ax.set(title=title, xlabel='Year', ylabel=label, xlim=(1970, 2021))
-        ax.set_xticks([1980, 2000, 2020])
-        ax.yaxis.set_major_locator(MaxNLocator(3))
-    save(fig, 'b_manuscript_activity')
-
-    fig, axs = axes_grid(1, 4, 6.875, 1.60)
+    fig, axs = axes_grid(1, 4, 6.875, 1.45)
     for ax, metric, label, letter in zip(axs[:2], ['density_directed', 'lcc_fraction'],
                                         ['Density (x 1000)', 'LCC fraction'], ['a', 'b']):
         for mode, color in [('annual', COL['annual']), ('cumulative', COL['real'])]:
@@ -99,7 +70,7 @@ def main():
                handlelength=1.4, columnspacing=1.3, borderaxespad=.1)
     save(fig, 'b_manuscript_aggregation')
 
-    fig, axs = axes_grid(1, 4, 6.875, 1.55)
+    fig, axs = axes_grid(1, 4, 6.875, 1.40)
     pa = json.loads((OUT / 'pa.json').read_text())
     kernel = pd.read_csv(OUT / 'pa_kernel.csv')
     k = kernel[(kernel.hits >= 5) & (kernel.uniform_expected > 0)]
@@ -143,12 +114,14 @@ def main():
 
     den = json.loads((OUT / 'densification.json').read_text())
     d = agg[(agg['mode'] == 'cumulative') & (agg.year >= 1990)]
-    axs[3].scatter(d.N, d.E, c=d.year, cmap='viridis', s=14)
+    axs[3].scatter(d.N, d.E, color=COL['real'], s=8, alpha=.7)
     x = np.geomspace(d.N.min(), d.N.max(), 100)
     axs[3].plot(x, np.exp(den['intercept']) * x ** den['a'], color='black', label=r'$a=1.343$')
     axs[3].set(xscale='log', yscale='log', xlabel='Papers N',
                ylabel='Citations E', title='(d) Densification')
     axs[3].legend(frameon=False)
+    for ax in axs:
+        ax.grid(axis='y')
     for ax in [axs[0], axs[3]]:
         ax.minorticks_off()
         ax.xaxis.set_major_locator(LogLocator(numticks=3))
@@ -158,7 +131,7 @@ def main():
     pred = pd.read_csv(OUT / 'wsb_predictions.csv')
     pred = pred[pred.evaluation == 'age15']
     summary = json.loads((OUT / 'wsb_summary.json').read_text())
-    fig, axs = axes_grid(1, 2, 3.28125, 1.35)
+    fig, axs = axes_grid(1, 2, 3.28125, 1.25)
     hi = max(float(pred.observed.max() + 1), float(pred.wsb.max() + 1), float(pred.linear.max() + 1))
     for model, label in [('wsb', 'WSB'), ('linear', 'Linear')]:
         axs[0].scatter(pred.observed + 1, pred[model] + 1, s=4, alpha=.3,
@@ -184,17 +157,19 @@ def main():
     save(fig, 'b_manuscript_forecast')
 
     # Four conceptual panels; P3 is included explicitly in the study overview.
-    fig, ax = plt.subplots(figsize=(6.875, 1.25), layout='constrained')
+    fig, ax = plt.subplots(figsize=(6.875, 1.0), layout='constrained')
     fig.set_constrained_layout_pads(w_pad=.004, h_pad=.008)
     ax.axis('off'); ax.set(xlim=(0, 4), ylim=(0, 1))
     parts = [('I  Representation', 'Aggregation and windows', 'H1  |  M1'),
              ('II  Activity', 'Burstiness and persistence', 'H2, H3  |  M2a, M2b'),
              ('III  Evolution', 'Growth and communities', 'H4, H5  |  M2c, M4'),
-             ('IV  Function', 'Paths and spreading', 'H6, H7  |  M3a--c')]
-    colors = ['#4C72B0', '#55A868', '#C44E52', '#8172B2']
+             ('IV  Function', 'Paths and spreading', 'H6, H7  |  M3a-c')]
     for i, (title, description, methods) in enumerate(parts):
         ax.add_patch(FancyBboxPatch((i + .03, .29), .94, .65, boxstyle='round,pad=.01',
-                                    fc=colors[i], alpha=.15, ec=colors[i]))
+                                    fc=figstyle.REAL, alpha=.08, ec=figstyle.REAL, lw=.6))
+        if i:
+            ax.annotate('', xy=(i + .03, .615), xytext=(i - .03, .615),
+                        arrowprops=dict(arrowstyle='-|>', color=figstyle.REAL, lw=.6))
         ax.text(i + .5, .80, title, ha='center', va='center', fontsize=8.5, weight='bold')
         ax.text(i + .5, .59, description.replace(' and ', '\nand '), ha='center', va='center', fontsize=8)
         ax.text(i + .5, .36, methods, ha='center', va='center', fontsize=8)

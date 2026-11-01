@@ -1,36 +1,37 @@
-\twocolumn[\begin{@twocolumnfalse}
-\subsection{Measured cross-network summary}\label{sec:r-cross}
-Each row uses the hypothesis-specific measure shown below. Their units and interpretations
-differ, so the table does not define a single overall sensitivity score.
-\begin{center}\small
+\subsection{Cross-network summary}\label{sec:r-cross}
+\Cref{tab:cross} lists one measure per hypothesis. Because the measures differ in units
+and interpretation, the table does not define a single sensitivity score for a network type:
+H1 is descriptive, H2--H6 are differences between the real value and the null mean in the
+units of the respective metric, and H7 is a conditional ratio of peak times.
+
+\begin{table*}[t]
+\centering\small
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrr@{}}
 \toprule ID & Measure & PS & CM & CIT \\
 \midrule
 H1 & Density sensitivity (descriptive) & 3.359 & 3.862 & 1.798 \\
 H2 & $\Delta B$ vs P1 & 0.016 & 0.336 & -- \\
-H3 & $\Delta J$ vs P1 & -0.147 & 0.027 & -- \\
+H3 & $\Delta J$ vs P1 & $-0.147$ & 0.027 & -- \\
 H4 & $\Delta\alpha$ vs P3a & -- & -- & 0.713 \\
-H5 & $\Delta$ adjacent NMI vs P1 & -0.096 & 0.098 & -- \\
-H6 & $\Delta R$ vs P1 & -0.134 & -0.120 & -- \\
-H6 & $\Delta R$ vs P2 & -0.134 & -0.031 & -- \\
+H5 & $\Delta$ adjacent NMI vs P1 & $-0.096$ & 0.098 & -- \\
+H6 & $\Delta R$ vs P1 & $-0.134$ & $-0.120$ & -- \\
+H6 & $\Delta R$ vs P2 & $-0.134$ & $-0.031$ & -- \\
 H7 & Peak ratio vs P1 (conditional) & 1.160 & 0.888 & -- \\
 H7 & Peak ratio vs P2 (conditional) & 1.214 & 0.995 & -- \\
-
 \bottomrule\end{tabular*}
-\captionof{table}{H1 is descriptive; H2--H6 are real minus the named null mean, in their
-respective metric units. H7 explicitly reports both primary-setting peak ratios,
-conditional on major outbreaks; its CSV effect column instead contains real minus
-null peak delay in seconds. -- denotes inapplicability, not a zero effect.
-H1 uses different grids/definitions (PS 5 min--1 day, CM 1 h--30 days, CIT trailing
-1/2/5/10-year windows); its three values cannot be ranked. Density and mean total
-degree sensitivities are algebraically redundant. H4 represents PA only; the other
-H4 verdicts remain separate. H5 uses 15-min PS/7-day CM windows.}
-\label{tab:cross}\end{center}
-A common subtraction operator does not create a common substantive effect scale.
-H2's PS excess is small over the full interval and changes in the halves.
-CM's positive full-period H3 overlap contrast reverses in both halves; its verdict
-is observation-interval-dependent. H5 has dataset-specific structural evidence;
-H6 shows lower reachability than both nulls under the finite-horizon protocol.
-H7 has conditional primary-setting support in PS and no general slowdown support
-in CM; neither choice of null nor the conditioning on major outbreaks may be hidden.
-\end{@twocolumnfalse}]
+\caption{Hypothesis-specific measures. H1 uses different grids and definitions (PS 5\,min--1\,day,
+CM 1\,h--30\,days, CIT trailing windows of 1/2/5/10 years), so its three values cannot be ranked,
+and density and mean total degree are algebraically redundant. H4 reports the attachment exponent
+only; the remaining H4 verdicts are stated separately. H5 uses 15-min windows for PS and 7-day
+windows for CM. H7 reports the primary setting and conditions on major outbreaks. A dash
+denotes inapplicability and not a zero effect.}
+\label{tab:cross}
+\end{table*}
+
+In summary, H1 holds in all three networks; H2 holds for burstiness, with a small and
+interval-dependent PS excess; the CM H3 contrast is positive over the full period but
+negative in both halves; H4 holds except for diameter shrinkage and forecast advantage; H5
+holds in PS but not in CM; and H6 shows lower reachability than both nulls under the
+finite-horizon protocol. H7 is conditionally supported in PS and not supported in CM, and
+neither the choice of reference model nor the conditioning on major outbreaks can be omitted
+from this statement.

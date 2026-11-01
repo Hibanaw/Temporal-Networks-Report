@@ -1,41 +1,50 @@
-\subsection{Aggregation and time windows}
+\subsection{Representation and time windows (H1)}
 \label{sec:r-aggregation}
-% Owner: A; generated from results/a_summary.csv and results/ac/.
 \paragraph{Contact and messaging networks.}
-We use nonoverlapping windows anchored at the first observed event, with all nodes
-in the selected period retained in every window. Empty windows and the final partial
-window are included; overnight inactivity in PS therefore contributes to the average.
-CM clustering is measured on the undirected projection; density and total degree
-retain message direction. The grids span 5 minutes--1 day (PS) and 1 hour--30 days (CM).
-For each metric, sensitivity is the range of its window-averaged values divided by
-their mean across grid widths.
-\begin{table}[!htbp]
+Every structural metric changes substantially with the window width in both networks
+(\cref{tab:a-windows}, \cref{fig:agg-window}a,b). Density, clustering and LCC fraction
+increase with the width, with sensitivities between 1.6 and 3.9; the number of weak
+components in CM varies least (0.364).
+
+\begin{table}[t]
 \centering\small
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrr@{}}
-\toprule Metric sensitivity & PS & CM \\
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrrr@{}}
+\toprule Metric & PS & CM & CIT \\
 \midrule
-Density & 3.359 & 3.862 \\
-Mean total degree & 3.359 & 3.862 \\
-Clustering & 1.628 & 3.909 \\
-Weak components & 1.696 & 0.364 \\
-Weak LCC fraction & 2.066 & 2.912 \\
+Density (= mean total degree) & 3.359 & 3.862 & 1.798 \\
+Clustering & 1.628 & 3.909 & 2.361 \\
+Weak components & 1.696 & 0.364 & -- \\
+LCC fraction & 2.066 & 2.912 & 1.114 \\
 \bottomrule\end{tabular*}
-\caption{Measured relative ranges over the stated grids. These are descriptive
-sensitivity measures, not temporal-null significance tests.}\label{tab:a-windows}
+\caption{Window sensitivity (relative range over the window grid: PS 5\,min--1\,day,
+CM 1\,h--30\,days, CIT trailing windows of 1--10 years averaged over end years). The values
+are descriptive and are not tested against a reference model.}\label{tab:a-windows}
 \end{table}
-\begin{figure*}[!htbp]
+
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{ac_m1_windows.pdf}
-\caption{Structural metrics averaged over windows (PS top, CM bottom; separate scales). Dashed lines show full aggregates. The denominator includes inactive nodes.}
+\caption{Window dependence of structural metrics. Each metric is divided by its mean over
+the window grid, so the vertical extent of a curve equals its window sensitivity
+(\cref{tab:a-windows}). CIT curves are averaged over end years 1990--2020.}
 \label{fig:agg-window}
 \end{figure*}
 
-\input{sections/results_b_aggregation}
+\paragraph{Citation network.}
+In 2020 the annual and cumulative graphs on the same 19,150 published papers contain 1,450
+and 73,269 citations, with mean total degree 0.151 and 7.652 and LCC fraction 0.052 and
+0.641, respectively. Cumulative clustering is 0.124, whereas annual clustering is
+identically zero: because citations point to strictly older papers, every annual snapshot
+is bipartite. This is a property of the representation and not evidence of temporal
+correlation. Over trailing windows of 1--10 years, the sensitivities are 1.798 for density,
+2.361 for clustering and 1.114 for the LCC fraction (\cref{fig:agg-window}c). Longer
+windows connect a larger fraction of papers and admit triangles spanning several years,
+which a single final aggregate cannot reveal.
+
 \paragraph{Verdict on H1.}
-Supported as a representation effect in all three datasets. Numerical sensitivity
-depends on the width grid, alignment, inclusion of inactive nodes and observation span;
-these values alone do not establish a ranking of network types. Density and mean
-total degree are proportional under the fixed node denominator, so their identical
-sensitivity values are one representation effect, not two independent findings.
-PS clustering sensitivity changes from 1.628 in the full interval to 0.921 and
-0.959 in the halves, demonstrating observation-interval dependence.
+H1 is supported in all three networks as a representation effect. The numerical
+sensitivity depends on the window grid, the window alignment, the inclusion of inactive
+nodes and the observation span, so the values in \cref{tab:a-windows} do not rank the
+network types. The dependence on the observation interval is illustrated by the PS
+clustering sensitivity, which decreases from 1.628 over the full period to 0.921 and 0.959
+in the two halves.

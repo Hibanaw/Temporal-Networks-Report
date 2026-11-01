@@ -1,24 +1,25 @@
 %=====================================================================
 \section{Conclusion}
 \label{sec:conclusion}
-The completed citation-network experiments show that the importance of time
-depends on the question. A final aggregate reveals degree heterogeneity and
-connectivity, while preferential attachment, ageing and the growth law require
-historical degrees, publication ages or cumulative snapshots. In the selected
-AMiner database corpus, sublinear degree preference and age-dependent citation
-choice coexist with superlinear edge growth, yet the sampled effective diameter
-does not shrink. WSB compactly describes selected citation histories, but its
-mean-absolute-error advantage over a simple linear forecast is not established.
-Thus descriptive fit, temporal mechanism and predictive value should be assessed
-separately. PS and CM show window-dependent structure, interval-dependent excess
-burstiness with weaker-than-null pooled memory, and finite-horizon restrictions
-on temporal reachability. PS's full-period burstiness excess is small; CM's tie-overlap
-contrast reverses in both observation halves. Static communities conceal PS mixing
-more clearly than CM reorganisation. Conditional on network-specific major outbreaks,
-primary PS peaks later than both nulls, with parameter exceptions. CM does not support
-a general slowdown: its verdict depends on the null and timing metric, and two weak
-settings have undefined second-half peak ratios. The hypothesis-specific indicators cannot be combined
-into a single network-type ranking without additional assumptions.
-Future work includes broader corpus coverage, more datasets per type,
-finer-resolution citation dates and predictive tests under alternative censoring
-and missing-reference assumptions.
+This study tested seven hypotheses from the temporal-network literature on a contact, a
+messaging and a citation network within a common framework. The importance of temporal
+information depends on the question asked. In the citation network, the final aggregate
+describes degree heterogeneity and connectivity, whereas preferential attachment, ageing
+and the growth law require historical degrees, publication ages or cumulative snapshots.
+Within the selected AMiner corpus, sublinear degree preference and age-dependent citation
+choice coexist with superlinear edge growth, but the sampled effective diameter does not
+shrink. The WSB model describes citation histories compactly, but its forecast advantage
+over linear extrapolation is not established; descriptive fit, temporal mechanism and
+predictive value must therefore be assessed separately.
+
+In the contact and messaging networks, structural metrics depend strongly on the window
+width, burstiness exceeds the timestamp-shuffled baseline with an interval-dependent
+magnitude in PS, pooled memory is weaker than under P1, and time-respecting reachability is
+restricted over a finite horizon. The tie-overlap contrast of CM reverses in both
+observation halves. Static communities conceal the midday mixing in PS, whereas CM shows no
+comparable reorganisation. Conditional on major outbreaks, the primary PS setting peaks
+later than under both reference models, with exceptions across parameters; CM does not
+support a general slowdown. The hypothesis-specific effects cannot be combined into a single
+ranking of network types without further assumptions. Future work should include several
+datasets per network type, broader corpus coverage, finer-resolution citation dates and
+predictive tests under alternative assumptions about censoring and missing references.

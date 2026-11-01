@@ -1,12 +1,13 @@
 %=====================================================================
 \section{Methods}
 \label{sec:methods}
-Every analysis follows the same template: hypothesis from the literature $\to$ metric
-$\to$ randomized reference model. \Cref{tab:hypotheses} lists the seven hypotheses,
-the methods (M1--M4) that test them and the datasets where each method is meaningful
-(19 method--dataset pairs). The empty cells are deliberate: CIT is a year-resolution
-DAG without fine-grained events (no M2a, M2b, M3) and without community
-reorganisation (no M4), while PS and CM have no growth process (no M2c).
+Every analysis follows the same template: a hypothesis from the literature is
+operationalised by a metric and tested against a randomized reference model.
+\Cref{tab:hypotheses} lists the seven hypotheses, the methods (M1--M4) that test them and
+the datasets for which each method is meaningful (19 method--dataset pairs). Some
+combinations are inapplicable by construction: CIT is a directed acyclic graph with annual
+resolution, without fine-grained events (M2a, M2b, M3) or community reorganisation (M4),
+whereas PS and CM have no growth process (M2c).
 
 \begin{table*}[t]
 \centering
@@ -35,7 +36,7 @@ IV  & H6 & Time ordering restricts reachability and changes centrality rankings
            & \citep{karsai2011small} & M3c & P1, P2 & \checkmark & \checkmark & \\
 \bottomrule
 \end{tabular*}
-\caption{Hypotheses tested in this work, with methods, null models
+\caption{Hypotheses tested in this work, with methods, reference models
 (\cref{sec:null}) and applicable datasets.}
 \label{tab:hypotheses}
 \end{table*}
@@ -49,203 +50,149 @@ cumulative network $G(\le t)$ contains all events up to $t$.
 
 \subsection{Aggregation and time windows (M1)}
 \label{sec:m-aggregation}
-For each window length $\Delta t$ on a grid (PS: 5\,min to 1\,day; CM: 1\,h to 1\,month)
-we compute density, mean degree, clustering coefficient and giant-component size of the
-snapshots and of the aggregate. For CIT, yearly and cumulative networks are compared.
-\emph{Window sensitivity} is $(\max m-\min m)/\overline m$ across window-width
-means. PS/CM use a fixed node universe for each selected period, include empty windows
-and retain the last partial window; windows start at the first observed event.
-Rankings are handled separately in M3b. Aggregation can introduce paths that
-cannot be traversed in time: if $c$--$d$ occurs before $a$--$b$ and $b$--$c$,
-the static path $a$--$b$--$c$--$d$ is not time-respecting from $a$.
-
-
-
+For each window width $\Delta t$ on a grid (PS: 5\,min to 1\,day; CM: 1\,h to 30\,days),
+non-overlapping snapshots are anchored at the first observed event. Density, mean total
+degree, clustering coefficient, number of weak components and the fraction of nodes in
+the largest weak component (LCC) are averaged over the snapshots. Every node of the
+selected period is retained in every window, and empty windows and the final partial
+window are included, so that overnight inactivity in PS enters the averages. Clustering
+of CM is computed on the undirected projection, whereas density and degree retain message
+direction. The \emph{window sensitivity} of a metric $m$ is $(\max m-\min m)/\overline m$
+over the window-averaged values on the grid. Under a fixed node set, density and mean total
+degree are proportional and therefore constitute a single effect. For CIT, annual and
+cumulative networks are compared, together with trailing windows (\cref{sec:m-evolution}).
+Aggregation can also introduce paths that cannot be traversed in time: if $c$--$d$ occurs
+before $a$--$b$ and $b$--$c$, the static path $a$--$b$--$c$--$d$ is not time-respecting
+from $a$; this effect is measured in M3.
 
 \subsection{Activity patterns (M2a, M2b)}
 \label{sec:m-activity}
-
-\textbf{M2a: Burstiness and memory.}
-We analyse inter-event times for each interacting node pair
-in the Primary School (PS) and CollegeMsg (CM) networks.
-PS contacts are recorded every 20 seconds. Consecutive
-records for the same unordered pair, separated by exactly
-20 seconds, are merged into a single contact episode.
-For CM, each retained directed message is treated as
-an independent event.
-
-For each edge, inter-event intervals are calculated
-from consecutive event timestamps. We pool these
-intervals across edges and calculate burstiness as
+\textbf{M2a: burstiness and memory.}
+Inter-event times are computed within each interacting node pair. Because PS contacts are
+sampled every 20\,s, consecutive records of the same unordered pair 20\,s apart are merged
+into a single contact episode; in CM each directed message is an independent event.
+Intervals are pooled across pairs, and burstiness is
 \begin{equation}
 B = \frac{\sigma-\mu}{\sigma+\mu},
 \end{equation}
-where $\mu$ and $\sigma$ are the mean and population
-standard deviation of the pooled intervals.
+where $\mu$ and $\sigma$ are the mean and population standard deviation of the pooled
+intervals. Memory $M$ is the Pearson correlation between consecutive intervals within a
+pair, pooled over all adjacent interval pairs and never across different pairs
+\citep{goh2008burstiness}. Both $B$ and $M$ are pooled statistics and not averages of
+per-pair coefficients.
 
-Memory is defined as the Pearson correlation between
-consecutive inter-event intervals within each edge,
-pooled across all valid adjacent interval pairs
-\citep{goh2008burstiness}.
-Both $B$ and $M$ are pooled statistics rather than
-averages of per-edge coefficients.
-
-\textbf{M2b: Repetition, lifetime and turnover.}
-We quantify temporal link persistence using three metrics.
-
-The repetition rate is the fraction of distinct edges
-with at least two independent contact episodes (PS)
-or two messages (CM).
-
-Edge lifetime is defined as the difference between
-the last and first event timestamps of each edge.
-Edges observed only once have zero lifetime.
-
-Link turnover is measured using the Jaccard similarity
-between edge sets in consecutive time windows:
+\textbf{M2b: repetition, lifetime and turnover.}
+The repetition rate is the fraction of distinct pairs with at least two contact episodes
+(PS) or two messages (CM). The lifetime of a pair is the time between its first and last
+event, so that pairs observed once have zero lifetime. Turnover is measured by the Jaccard
+similarity of the edge sets of consecutive windows,
 \begin{equation}
 J(E_k,E_{k+1}) =
 \frac{|E_k \cap E_{k+1}|}
-{|E_k \cup E_{k+1}|}.
+{|E_k \cup E_{k+1}|},
 \end{equation}
-We average this quantity over adjacent window pairs
-with nonempty unions.
-
-The default window size is one hour for PS and
-seven days for CM. We additionally evaluate
-15, 30, 60 and 120-minute windows for PS,
-and 1, 3, 7 and 14-day windows for CM.
-
-For PS, edge lifetime and window Jaccard are computed
-from the original event stream. We also compare raw
-20-second records with merged contact episodes
-to assess the sensitivity of H2 to event definition.
-
+averaged over adjacent window pairs with a nonempty union. The default window width is
+1\,h for PS and 7\,days for CM; widths of 15--120\,min (PS) and 1--14\,days (CM) are used
+as sensitivity checks. Lifetimes and Jaccard similarities are computed from the original
+records, and the comparison of raw records with merged episodes assesses the sensitivity
+of H2 to the event definition.
 
 \subsection{Structural evolution (M2c, M4)}
 \label{sec:m-evolution}
-% Owner: B (expanded M2c-1 through M2c-4 and P3).
 \input{sections/methods_b}
 
 \input{sections/methods_e_communities}
 
 \subsection{Paths, centrality and spreading (M3)}
 \label{sec:m-function}
-\textbf{M3a} averages earliest-arrival reachability over 16 PS clock-hour starts
-and 20 CM starts spread over the first 90\% of the selected interval.
-Paths use strictly increasing timestamps; simultaneous events cannot form a chain.
-Temporal reachability and static reachability use the same period node universe.
-The ratio $R$ uses the full selected period's static graph; late starts therefore
-include a finite-horizon boundary effect. Latency is conditional on reachability.
+\textbf{M3a} computes earliest-arrival reachability from 16 clock-hour start times in PS
+and 20 evenly spaced start times within the first 90\% of the CM interval. Paths require
+strictly increasing timestamps, so simultaneous events cannot form a chain, and unreachable
+pairs contribute zero. The reachability ratio $R$ divides temporal reachability by the
+static reachability of the full selected period on the same node set and with the same
+edge direction; late start times therefore include a finite-horizon effect. Mean latency
+is averaged over reachable pairs at each start time and then over start times.
 
 \input{sections/methods_e_centrality}
 
-\textbf{M3c} uses 200 event-started seeds per network and four parameter combinations.
-PS uses $(\beta,D)=(.05,4\,h),(.02,4\,h),(.10,4\,h),(.05,1\,h)$;
-CM uses $(.20,14\,d),(.05,14\,d),(.50,14\,d),(.20,3\,d)$.
-The first setting is primary. Event positions are drawn uniformly from the first
-70\% of each stream. The source is the sender in CM and a random endpoint in PS.
-Sources are infected at the selected event time; only later events transmit.
-We report final size, probability of reaching 5\% of nodes, and peak-delay ratios
-conditional on major outbreaks. There are 20 P1 and 20 P2 networks in each primary run.
-Simultaneous infections and recoveries are combined before measuring prevalence.
+\textbf{M3c} simulates an event-driven SIR process from 200 seeds per network. Seed events
+are drawn uniformly from the first 70\% of the event sequence; the source is the sender in
+CM and a random endpoint in PS. The source is infected at the time of the seed event, and
+only later events transmit, each with probability $\beta$; the infectious duration $D$ is
+fixed, and recovered nodes remain immune. Four parameter settings are used per network,
+the first being primary: $(\beta,D)=(0.05,4\,\mathrm{h})$, $(0.02,4\,\mathrm{h})$,
+$(0.10,4\,\mathrm{h})$, $(0.05,1\,\mathrm{h})$ for PS and $(0.20,14\,\mathrm{d})$,
+$(0.05,14\,\mathrm{d})$, $(0.50,14\,\mathrm{d})$, $(0.20,3\,\mathrm{d})$ for CM. The
+outcomes are the final infected fraction, the probability of a major outbreak (at least
+5\% of the nodes infected) and the time $T$ to the prevalence peak. Simultaneous infections
+and recoveries are combined before prevalence is measured. Peak times are averaged over
+major outbreaks only, so the ratio $T_{\mathrm{real}}/\overline T_{\mathrm{null}}$ is a
+conditional ratio of means; a network without a major outbreak yields an undefined ratio
+and not a zero delay. Each run uses 20 P1 and 20 P2 networks.
 
 \subsection{Randomized reference models}
 \label{sec:null}
-No single temporal counterpart of the configuration model exists, so one switches off
-selected correlations with different models and compares the outcomes
-\citep{holme2012temporal,gauvin2022randomized}.
+No single temporal counterpart of the configuration model exists; instead, selected
+correlations are removed by different models and the outcomes are compared
+\citep{holme2012temporal,gauvin2022randomized}. For PS and CM, two complementary
+randomizations are used, corresponding to \emph{randomly permuted times} (RP) and
+\emph{randomized edges} (RE) in the terminology of \citet{holme2012temporal}.
 
-For PS and CM, we consider two complementary types of randomization,
-corresponding to \emph{randomly permuted times} (RP) and
-\emph{randomized edges} (RE) in the naming of
-\citet{holme2012temporal}.
+\textbf{P1 (RP): timestamp permutation.}
+Timestamps are permuted among events while the endpoints of each event are kept. P1
+preserves the static graph, the number of events of every pair and the global timestamp
+distribution, and destroys temporal correlations. Coincident events produced by the
+permutation are retained to preserve event counts. Twenty realizations are used unless
+stated otherwise.
 
-\textbf{P1 (RP): Timestamp permutation.}
-P1 randomly permutes timestamps among events while keeping their
-endpoints unchanged. It preserves the static graph, the number of
-contacts of every pair, and the global timestamp distribution,
-while disrupting the original temporal correlations.
-For H2 and H3, we generate 20 realizations and report
-the null mean and standard deviation.
+\textbf{P2: endpoint swaps.}
+Endpoints are swapped between randomly chosen event pairs while timestamps are kept
+fixed. In undirected PS, endpoint orientations are randomized before swapping; in directed
+CM, sender and receiver roles are preserved. Swaps that would create self-loops or duplicate
+events are rejected, and five swaps are attempted per event. P2 preserves the number of
+events, the multiset of timestamps and the event participation count of every node
+(separately as sender and receiver in CM), but not the static degrees or the event
+sequences of individual pairs. These invariants are verified on a fixed seed; uniform
+sampling and sufficient mixing are not established. A degree-preserving rewiring that
+moves each pair's event sequence with its link \citep{holme2012temporal} and combined
+models (RE+RP) were not evaluated. Comparing P1 with P2 separates the effects of event
+timing from those of the topology.
 
-\textbf{P2: Structural randomization.}
-We distinguish two variants of edge randomization.
-
-\textbf{P2a (RE, original proposal).}
-The original method rewires the static graph in a
-degree-preserving way while each pair's contact sequence
-moves with its link. It aims to destroy the wiring diagram
-while preserving per-link temporal activity patterns
-and the overall event rate.
-This variant is retained as the original methodological
-proposal but was not evaluated in the Member C experiments.
-
-\textbf{P2b (constrained endpoint swaps, implemented).}
-Our implementation randomly swaps endpoints between event pairs
-while keeping timestamps fixed. For undirected PS, endpoint
-orientations are randomized before swapping; for directed CM,
-sender and receiver roles are preserved. Swaps creating self-loops
-or duplicate edge-time events are rejected.
-
-P2b preserves the total event count, timestamp multiset,
-and node event participation counts (separate sender and
-receiver counts for CM). Unlike P2a, it does not necessarily
-preserve static simple-graph degrees or individual edge
-contact sequences.
-
-We attempt five swaps per event and validate the structural
-invariants using a fixed random seed of 42.
-These checks do not establish uniform sampling or sufficient
-mixing of the randomization process.
-
-Comparing temporal and structural randomization helps
-distinguish the effects of event timing from network topology.
-Combined models (RE+RP) and fully random times (RT)
-remain possible extensions.
-
+P3, the reference model for citations, is described in \cref{sec:m-evolution}.
 
 \subsection{Measuring the effect of time}
 \label{sec:time-effect}
-Raw metrics cannot be compared across a contact network, a message network and a
-citation network, so we define one normalised measure per hypothesis:
-H1 window sensitivity (relative change of a metric over the $\Delta t$ grid);
-H2 differences in pooled burstiness and memory
-relative to P1,
-$B_{\mathrm{real}}-\overline{B}_{\mathrm{P1}}$
-and
-$M_{\mathrm{real}}-\overline{M}_{\mathrm{P1}}$;
-H3 differences in adjacent-window link Jaccard
-relative to P1,
-$J_{\mathrm{real}}-\overline{J}_{\mathrm{P1}}$;
-H4 exponents $\alpha$ and $a$;
-H5 mean consecutive-snapshot NMI and dynamic-vs-static NMI;
-H6 reachability ratio $R$ and Kendall $\tau$(static, temporal);
-H7 slowdown $T_{\mathrm{real}}/T_{\mathrm{null}}$, where $T$ is the time to the epidemic peak.
+Raw metrics cannot be compared across a contact network, a message network and a citation
+network. One measure is therefore defined per hypothesis: H1, the window sensitivity; H2,
+$B_{\mathrm{real}}-\overline{B}_{\mathrm{P1}}$ and $M_{\mathrm{real}}-\overline{M}_{\mathrm{P1}}$;
+H3, $J_{\mathrm{real}}-\overline{J}_{\mathrm{P1}}$; H4, the attachment exponent
+$\alpha$ relative to P3a and the densification exponent $a$; H5, the mean NMI between consecutive snapshots and between snapshots and
+the static partition; H6, the reachability ratio $R$ and Kendall's $\tau$ between static
+and temporal centrality; and H7, the peak-time ratio $T_{\mathrm{real}}/\overline T_{\mathrm{null}}$.
+Apart from H1, which has no reference model, and H7, which is a ratio, each effect is the
+difference $x_{\mathrm{real}}-\overline{x}_{\mathrm{null}}$ in the units of the
+underlying metric. A common difference operator does not place different hypotheses on a
+common scale, and quantities that are invariant under P1 are reported as descriptive values
+and not as evidence from a null test.
 
-The cross-network CSV uses one arithmetic definition: $\mathrm{effect}=x_{\rm real}-\overline{x}_{\rm null}$
-in the underlying metric's units. H1 has no null and its effect is undefined;
-its descriptive sensitivity is kept in the value field. H7 stores actual peak delays
-and their difference in seconds, with both P1/P2 ratios in a separate ratio field.
-A shared subtraction operator does not standardize different hypotheses or make
-H1's different grids comparable. P1 invariants are descriptive quantities, never
-independent evidence from a null test. The report labels its H7 ratios explicitly.
+\subsection{Robustness protocol}
+\label{sec:m-robustness}
+For PS and CM, the observation period is split at the elapsed-time midpoint and all
+analyses are repeated on both halves. PS start times retain their clock-hour convention,
+whereas CM start times and SIR seeds are redrawn within each half. The null ensemble is
+enlarged from 20 to 60 networks, nested over the first 20, with the same empirical network.
+SIR retains all four parameter settings, and the community analysis repeats its primary
+window and resolution on the halves. For CIT, the 1990--2020 analysis interval is split
+into 1990--2004 and 2005--2020, with earlier papers retained as eligible targets; the
+attachment and ageing statistics receive additional P3 realizations. The fixed-horizon
+forecast test of M2c-4 is not repeated on the halves.
 
 \subsection{Implementation}
-All code is in Python. We use NetworkX for static graphs, a strict-time all-source
-event-scan algorithm for earliest arrivals, NumPy with optional Numba acceleration
-for SIR, and igraph/Leiden for per-snapshot and multislice partitions. Null models, the attachment-kernel
-estimator and the SIR process are custom code, unit-tested on hand-built examples
-whose answers are known (reachability, SIR, preserved quantities of P1 and P2). Random
-seeds are fixed and every figure is generated by one script.
-
-\paragraph{Supplementary robustness protocol.}
-PS/CM use elapsed-time midpoint splits; PS starts retain their clock-hour convention,
-while CM starts are recalculated within each half. Null sensitivity compares the
-first 20 with all 60 seeded networks, using the same real network. D retains four
-SIR parameter settings. E repeats its primary window/resolution on the halves and
-20/60 nulls; its existing nine-setting resolution grid is retained. CIT uses the
-1990--2020 analysis interval split into 1990--2004 and 2005--2020, retaining earlier
-papers as eligible targets. PA and age statistics receive additional P3 draws;
-existing densification/diameter checks remain separate, and WSB's fixed-horizon
-forecast test is not interpreted as a stationary half-window experiment.
+All code is written in Python. NetworkX is used for static graphs, a strict-time event scan
+for earliest arrivals, NumPy with optional Numba acceleration for SIR, and igraph/Leiden
+for per-snapshot and multislice partitions. The reference models, the attachment-kernel
+estimator and the SIR process are custom implementations, unit-tested on small examples
+with known answers (reachability, SIR and the invariants of P1 and P2). Random seeds are
+fixed, input checksums and all randomized edge lists are stored, and each figure is
+generated by a single script from saved results. Computationally intensive workloads were
+run on a CPU cluster.

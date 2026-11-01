@@ -1,7 +1,9 @@
 %=====================================================================
 \section{Data}
 \label{sec:data}
-We use one network per type, chosen to differ in edge meaning, generating mechanism and time scale (seconds, seconds, years); data cards are in \cref{tab:data} and activity time series in \cref{fig:activity}.
+One network is used per type. The three networks were chosen to differ in edge semantics,
+generating mechanism and temporal resolution; their properties are summarised in
+\cref{tab:data}.
 
 \begin{table}[t]
 \centering
@@ -16,49 +18,46 @@ Comm. & CollegeMsg (CM) & 1\,899 & 59\,798 & 193 d & 1 s \\
 Citation & DBLP--DB (CIT) & 19\,150 & 73\,269 & 50 yr & 1 yr \\
 \bottomrule
 \end{tabular*}
-\caption{Data cards. $N$: nodes; Res.: temporal resolution. CIT spans publication years 1970--2020, with primary analysis in 1990--2020. PS: undirected, class labels, CC BY-NC-SA;
-CM: directed, no labels; CIT: directed, acyclic.}
+\caption{Datasets. $N$: nodes; Res.: temporal resolution. CIT spans publication years
+1970--2020; the primary analysis covers 1990--2020. PS is undirected and has class labels;
+CM is directed and unlabelled; CIT is directed and acyclic.}
 \label{tab:data}
 \end{table}
 
-\paragraph{Face-to-face contact.}
+\paragraph{Face-to-face contacts.}
 The primary-school data \citep{stehle2011high,gemmetto2014mitigation} were collected by
-the SocioPatterns collaboration with wearable proximity sensors over two school days.
-A contact is recorded when two people are face to face within about 1.5\,m for at
-least 20\,s. Each individual carries a class label, which we use as ground truth for
-communities. The data are released under CC BY-NC-SA.
+the SocioPatterns collaboration with wearable proximity sensors over two school days. A
+contact is recorded when two individuals are face to face within approximately 1.5\,m for
+at least 20\,s. Each individual carries a class label, which serves as ground truth for
+community detection. The data are released under CC BY-NC-SA.
 
 \paragraph{Online communication.}
-CollegeMsg \citep{panzarasa2009patterns} contains time-stamped private messages
-between 1\,899 users of an online student community over 193 days at 1\,s
-resolution. Edges are directed, and there are no node labels.
+CollegeMsg \citep{panzarasa2009patterns} contains time-stamped private messages between
+1\,899 users of an online student community over 193 days at 1\,s resolution. Edges are
+directed, and no node labels are available.
 
 \paragraph{Scientific publications.}
-% Owner: B (measured CIT data card).
-We use AMiner DBLP-Citation V14 \citep{tang2008arnetminer}, selected by a fixed
-set of database venue families and their declared name variants. Streaming
-5,259,858 records yields 19,150 publications from 1970--2020 and 73,269 distinct
-citations to strictly older selected papers. These are within-subgraph citations,
-not global citation counts; 6,709 nodes are isolates. We save 5,486 same-year
-references separately, exclude 6,390 later-year references and 494 self-loops,
-and remove 37,440 repeated reference entries. The graph is acyclic under the
-strict year rule. AMiner specifies research use; no additional open-data licence
-is inferred. The recent fall in observed references despite growing paper counts
-motivates a cutoff-2015 sensitivity check and cautions about coverage and censoring.
+The citation network is an induced subgraph of AMiner DBLP-Citation V14
+\citep{tang2008arnetminer}, restricted to a fixed whitelist of database venues (SIGMOD,
+VLDB/PVLDB, ICDE, PODS, EDBT, ICDT, TODS, VLDB Journal, Data \& Knowledge Engineering and
+Information Systems) and their declared name variants. Of 5,259,858 streamed records,
+19,150 publications from 1970--2020 are retained, including 6,709 isolates. A citation
+$u\to v$ is dated by the publication year of $u$, and the primary graph requires
+$y_v<y_u$; it contains 73,269 distinct citations and is therefore acyclic. The 5,486
+same-year references, whose order cannot be resolved, are kept separately for a
+sensitivity analysis; 6,390 references to later papers, 494 self-loops and 37,440
+repeated reference entries are removed. Author self-citations are retained. All counts
+refer to citations within the selected venues and not to global citation impact. AMiner
+permits research use; no further licence is assumed. The number of retained citations per
+year declines in the most recent years although the number of publications continues to
+grow, which indicates coverage and censoring effects and motivates a sensitivity check
+with a 2015 cutoff.
 
 \paragraph{Preprocessing.}
-All data are converted to a common event format $(u,v,t)$ with integer time stamps
-(seconds or years) plus a table of node labels. Self-loops and exact duplicate
-events are removed. PS/CM windows retain the final partial window and include empty windows. Each source
-has known limits: citation data have year-level resolution, the contact data cover only
-two days, and the sensors sample only participants who wear them. The three datasets
-differ in edge meaning (proximity, message, citation), directedness and time scale
-by design, so that agreement across them is not an artefact of one data type.
-
-\begin{figure}[t]
-\centering\includegraphics[width=\columnwidth]{b_manuscript_activity.pdf}
-\caption{Measured CIT activity: (a) retained citations and (b) selected publications.
-The late citation decline despite rising publications motivates coverage checks.
-PS/CM activity series remain pending.}
-\label{fig:activity}
-\end{figure}
+All data are converted to a common event format $(u,v,t)$ with integer timestamps
+(seconds or years) and a table of node labels. Self-loops and exact duplicate events are
+removed. Each source has known limitations: the citation data have annual resolution,
+the contact data cover only two days, and the sensors record only participating
+individuals. The datasets differ by design in edge semantics (proximity, message,
+citation), directedness and time scale, so that agreement across them cannot be
+attributed to a single data type.

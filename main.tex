@@ -24,17 +24,6 @@
 \setcounter{totalnumber}{10}
 
 
-% Outline notes; set \showoutline to false to hide them in the final version.
-\newif\ifshowoutline \showoutlinefalse
-\newcommand{\outline}[1]{\ifshowoutline{\color{gray}\small\itshape [Outline] #1\par}\fi}
-
-% Expected (not yet measured) results: shown in blue; replace with measured text, then
-% delete the macro. Set \showexpected to false to hide them.
-\newif\ifshowexpected \showexpectedfalse
-\newcommand{\expect}[1]{\ifshowexpected{\color{blue!60!black}#1}\fi}
-% Placeholder for a result figure that is not produced yet: \figph{width}{height}{text}
-\newcommand{\figph}[3]{\fbox{\parbox[c][#2][c]{\dimexpr#1-2\fboxsep-2\fboxrule\relax}{\centering\small\color{gray}#3}}}
-
 \title{How Much Does Time Matter?\\
 A Comparative Study in Real-World Temporal Networks}
 % CVPR-style author block for authors sharing one affiliation and one email domain:
@@ -52,26 +41,25 @@ A Comparative Study in Real-World Temporal Networks}
 \maketitle
 
 \begin{abstract}
-Real networks are made of interactions that happen at specific times, yet they are
-routinely analysed as static aggregated graphs. We ask how much this discards. We
-organise the temporal-network literature around four questions---representation,
-activity patterns, structural evolution and function---distil seven testable
-hypotheses (H1--H7), and define a common pipeline of window analysis,
-randomized reference models and dynamic-community tracking on three networks of
-different type and time scale: face-to-face contacts in a primary school, online
-messaging among students, and a computer-science citation network. The cross-network comparison
-uses normalised \emph{time effects} rather than raw metrics.
-The completed citation-network study contains 19,150 papers and 73,269
-strictly older-target citations. It supports sublinear degree preference and
-age-dependent citation choice, with a densification exponent of 1.343, but no
-detected shrinkage of the sampled effective diameter. A three-parameter citation
-model fits selected histories well without an established MAE advantage over
-linear extrapolation. In contacts and messages, window choice changes structural metrics and time
-ordering reduces finite-horizon reachability. PS's excess burstiness and CM's
-tie-persistence contrast depend on observation interval. Conditional SIR peak delays
-increase in primary PS settings; CM peaks earlier than timestamp shuffle and close
-to endpoint-randomized controls, with timing-metric and parameter exceptions. These hypothesis-specific
-effects do not establish one overall ranking of network types.
+Real networks consist of interactions that occur at specific times, yet they are routinely
+analysed as static aggregated graphs. This study quantifies the information that aggregation
+discards. The
+temporal-network literature is organised around four questions (representation, activity
+patterns, structural evolution and function), from which seven testable hypotheses (H1--H7)
+are derived. A common pipeline of window analysis, randomized reference models and
+dynamic-community tracking is applied to three networks of different type and time scale:
+face-to-face contacts in a primary school (PS), online messaging among students (CM) and a
+computer-science citation network (CIT). The networks are compared through
+hypothesis-specific time effects rather than raw metrics. The citation network (19,150 papers, 73,269
+citations to strictly older papers) shows sublinear degree preference, age-dependent citation
+choice and densification with exponent 1.343, but no detected shrinkage of the sampled
+effective diameter; a three-parameter citation model fits selected histories but shows no
+established advantage over linear extrapolation. In PS and CM, structural metrics depend on
+the window width and time ordering reduces finite-horizon reachability. The excess
+burstiness of PS and the tie-persistence contrast of CM depend on the observation interval.
+Conditional on major outbreaks, SIR peaks occur later in PS than under both nulls, whereas CM
+peaks earlier than under timestamp shuffling and close to endpoint randomization. These
+hypothesis-specific effects do not support a single ranking of network types.
 \end{abstract}
 
 \input{sections/intro}
