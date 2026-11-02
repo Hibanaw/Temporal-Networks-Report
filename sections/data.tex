@@ -1,7 +1,7 @@
 %=====================================================================
 \section{Data}
 \label{sec:data}
-We use one network per type, chosen to differ in edge meaning, generating mechanism and time scale (seconds, seconds, years); data cards are in \cref{tab:data} and activity time series in \cref{fig:activity}.
+We use one network per type, chosen to differ in edge meaning, generating mechanism and time scale (seconds, seconds, years); data cards are in \cref{tab:data} and activity time series in \cref{fig:activity-ps-cm,fig:activity}.
 
 \begin{table}[t]
 \centering
@@ -11,8 +11,8 @@ We use one network per type, chosen to differ in edge meaning, generating mechan
 \toprule
 Type & Dataset & $N$ & Events & Span & Res. \\
 \midrule
-Contact & Primary school (PS) & 242 & 125\,773 & 2 d & 20 s \\
-Comm. & CollegeMsg (CM) & 1\,899 & 59\,798 & 193 d & 1 s \\
+Contact & Primary school (PS) & 242 & 125\,773 & 32.5 h & 20 s \\
+Comm. & CollegeMsg (CM) & 1\,899 & 59\,798 & 193.7 d & 1 s \\
 Citation & DBLP--DB (CIT) & 19\,150 & 73\,269 & 50 yr & 1 yr \\
 \bottomrule
 \end{tabular*}
@@ -26,12 +26,16 @@ The primary-school data \citep{stehle2011high,gemmetto2014mitigation} were colle
 the SocioPatterns collaboration with wearable proximity sensors over two school days.
 A contact is recorded when two people are face to face within about 1.5\,m for at
 least 20\,s. Each individual carries a class label, which we use as ground truth for
-communities. The data are released under CC BY-NC-SA.
+communities. Each of the 125\,773 records marks one 20-second contact interval.
+The elapsed time between the first and last timestamps is 32.5 hours across two school days.
+The overnight gap contains no recorded contacts. The data are released under CC BY-NC-SA 3.0.
 
 \paragraph{Online communication.}
 CollegeMsg \citep{panzarasa2009patterns} contains time-stamped private messages
-between 1\,899 users of an online student community over 193 days at 1\,s
-resolution. Edges are directed, and there are no node labels.
+between 1\,899 users over 193.7 days at 1\,s resolution. Removing 37 repeated
+sender--recipient--timestamp triples from the 59\,835 source rows leaves 59\,798 events.
+Distinct messages sent within the same second can share a triple. Edges are directed,
+and there are no node labels.
 
 \paragraph{Scientific publications.}
 % Owner: B (measured CIT data card).
@@ -56,9 +60,14 @@ differ in edge meaning (proximity, message, citation), directedness and time sca
 by design, so that agreement across them is not an artefact of one data type.
 
 \begin{figure}[t]
+\centering\includegraphics[width=\columnwidth]{activity_PS_CM.pdf}
+\caption{Observed activity in PS and CM. The upper panel counts 20-second face-to-face contact records per 10-minute bin across two school days. The lower panel counts cleaned messages per UTC day. CollegeMsg activity is concentrated early in the observation period.}
+\label{fig:activity-ps-cm}
+\end{figure}
+
+\begin{figure}[t]
 \centering\includegraphics[width=\columnwidth]{b_manuscript_activity.pdf}
 \caption{Measured CIT activity: (a) retained citations and (b) selected publications.
-The late citation decline despite rising publications motivates coverage checks.
-PS/CM activity series remain pending.}
+The late citation decline despite rising publications motivates coverage checks.}
 \label{fig:activity}
 \end{figure}

@@ -4,11 +4,21 @@
 \paragraph{Contact and messaging networks.}
 We use nonoverlapping windows anchored at the first observed event, with all nodes
 in the selected period retained in every window. Empty windows and the final partial
-window are included; overnight inactivity in PS therefore contributes to the average.
+window are included. Windows with no recorded contacts during the overnight PS gap
+therefore contribute to the average.
 CM clustering is measured on the undirected projection; density and total degree
 retain message direction. The grids span 5 minutes--1 day (PS) and 1 hour--30 days (CM).
 For each metric, sensitivity is the range of its window-averaged values divided by
 their mean across grid widths.
+In PS, the mean largest connected component covered 11.6\% of participants in
+5-minute windows and 99.0\% at 24 hours. The latter averages one full window
+and one shorter final window. In CM, the mean largest weak component covered
+0.24\% of users at 1 hour and 31.8\% at 30 days. At 30 days the means were
+45.0\% in the first half and 38.3\% in the second, each over four windows
+including the partial tail. Each half uses the users observed in that half
+as its denominator. Weak connectivity describes the aggregated snapshot and
+discards message order.
+
 \begin{table}[!htbp]
 \centering\small
 \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrr@{}}
