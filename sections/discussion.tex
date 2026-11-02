@@ -2,75 +2,77 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\paragraph{What the static aggregate retains.}
-The static aggregate preserves which pairs interact and, for CIT, the degree
-heterogeneity, clustering and connected components of the final network. It also
-identifies which nodes are broadly central, since static and temporal closeness rankings are
-positively correlated in both PS and CM. For questions of this kind, a static
+\paragraph{Information retained by the static aggregate.}
+The static aggregate preserves which pairs interact and, for the citation network, the
+degree heterogeneity, clustering and connected components of the final graph. Because
+static and temporal closeness rankings are positively correlated in both PS and CM, it also
+identifies which nodes are broadly central. For questions of this kind a static
 representation is adequate.
 
-\paragraph{What requires temporal information.}
-All remaining conclusions depend on temporal information, at three levels of detail. The
-window choice alone changes most structural metrics by more than their mean value (H1). Event sequences are required for activity patterns (H2, H3), community dynamics (H5)
-and network function (H6, H7): burstiness exceeds the timestamp-shuffled baseline in both
-contact and messaging data, link turnover cannot be represented by a single graph, the
+\paragraph{Information that requires time.}
+All other conclusions depend on temporal information, and they do so at increasing levels
+of detail. The choice of window alone changes most structural metrics by more than their
+mean value (H1). Activity patterns, community dynamics and network function require the
+full event sequence. In CM, burstiness clearly exceeds the timestamp-shuffled baseline,
+whereas in PS the heavy-tailed intervals are largely produced by the school schedule, which
+the shuffled baseline retains. Link turnover cannot be represented by a single graph, the
 midday mixing in PS is invisible in the static partition, and time-respecting paths reach
-fewer nodes than the static graph suggests. For citations, attachment, ageing and
-densification (H4) can be measured only from the historical sequence of degrees,
-publication ages and $(N(t),E(t))$ pairs. Moreover, the most central nodes differ between
-static and temporal rankings, and weighting the static graph by contact frequency makes the
-PS ranking misleading, because repeated within-class contacts do not shorten
-time-respecting paths to the rest of the school.
+fewer nodes than the static graph suggests. The most central nodes also differ between
+static and temporal rankings; weighting the static graph by contact frequency makes the PS
+ranking misleading, because repeated within-class contacts do not shorten time-respecting
+paths to the rest of the school. For citations, attachment, ageing and densification can be
+measured only from the historical sequence of degrees, publication ages and
+$(N(t),E(t))$ pairs.
 
 \paragraph{Differences between network types.}
-The three networks differ in generating mechanism (physical proximity, voluntary
-messaging, citation of earlier work), time scale and edge semantics: a contact ends, a
-message is instantaneous and a citation persists. PS interactions are constrained by the
-school timetable and by proximity, which produces fast turnover, a strong class structure
-interrupted at midday, and, at the primary setting, epidemic peaks later than under both
-reference models. CM
-records voluntary communication over a much longer period; its stronger excess burstiness is
-consistent with this difference, while its sparse weekly snapshots show neither community
-reorganisation nor a spreading slowdown. CIT has persistent edges and is acyclic by
-construction, so time enters through growth, ageing and densification rather than through
-paths or turnover. These contrasts show that the relevance of time is specific to the
-hypothesis, not to the network type, and that direct comparisons between networks remain
-conditional on their different event definitions and observation periods.
+The three networks differ in generating mechanism, time scale and edge semantics. A contact
+ends, a message is instantaneous and a citation persists. PS interactions are constrained by
+the school timetable and by physical proximity, which produces fast turnover, a strong class
+structure interrupted at midday and, at the primary setting, epidemic peaks later than under
+both reference models. CM records voluntary communication over a much longer period; its
+stronger excess burstiness is consistent with conversational exchanges, while its sparse
+weekly snapshots show neither community reorganisation nor a spreading slowdown. CIT has
+persistent edges and is acyclic by construction, so time enters through growth, ageing and
+densification rather than through paths or turnover. The relevance of time is therefore
+specific to the hypothesis rather than to the network type, and direct comparisons between
+networks remain conditional on their event definitions and observation periods.
 
 \paragraph{Dependence on protocol choices.}
-Several conclusions depend on the observation interval more than on the null ensemble
-(\cref{sec:r-robustness}). The PS burstiness excess and the sign of the CM persistence
-contrast change when the period is halved, and they also depend on the event definition and
-the window width, respectively (\cref{tab:activity-sens}), because P1
-redistributes events over the selected interval and its baseline therefore varies with
-duration, activity and window composition. The H7 verdict depends additionally on the
-reference model, the parameter setting and the timing metric, and conditions on
-network-specific subsets of major outbreaks. Quantities that are invariant under P1, such as
-the CM repeated-tie fraction, are descriptive and their near-zero null dispersion is not
-evidence of a temporal effect. For CIT, the attachment exponent depends on the degree offset
-and the densification exponent on the period, whereas the signs of both and the diameter
-result are stable. These are qualitative stability results; they do not show that coverage
-and censoring effects have been removed.
+Several conclusions depend more on the observation interval and on the definition of events
+and windows than on the size of the null ensemble (\cref{sec:r-robustness}). The PS
+burstiness excess changes with the observation interval and the event definition, and the
+sign of the CM persistence contrast changes with the observation interval and the window
+width (\cref{tab:activity-sens}). Timestamp permutation redistributes events over the
+selected interval, so its baseline varies with the duration, activity and window composition
+of that interval. The H7 verdict further depends on the reference model, the parameter
+setting and the timing metric, and it conditions on network-specific subsets of major
+outbreaks. Quantities that are invariant under P1, such as the CM repeated-tie fraction, are
+descriptive, and their near-zero null dispersion is not evidence of a temporal effect. In the
+citation network, the attachment exponent depends on the degree offset and the
+densification exponent on the period, whereas the signs of both and the diameter result are
+stable. These checks establish qualitative stability but do not remove coverage and
+censoring effects.
 
 \paragraph{Description, mechanism and prediction.}
 The citation results separate claims that are often combined. The cumulative edge count
 grows superlinearly, but the sampled effective diameter does not shrink. The WSB model fits
 selected citation histories closely in sample, yet its forecast advantage over linear
-extrapolation is not established. The zero annual clustering is an artefact of the
+extrapolation is not established. The zero annual clustering is a consequence of the
 strict-year snapshot construction. Representation, in-sample description and held-out
 prediction therefore require separate assessment.
 
 \paragraph{Limitations.}
-Each network type is represented by a single dataset, so the conclusions apply to these data.
-Pooled burstiness and memory may be affected by heterogeneous edge activity, and P1, which
-preserves the global timestamp distribution, does not remove all nonstationarity. The
-two-day PS window introduces boundary effects in tie lifetimes, and window-based Jaccard
-similarity depends on the aggregation scale. Reachability includes finite-horizon effects.
-P2 is not guaranteed to sample uniformly from the admissible networks, and 20 realizations
-per reference model give a coarse tail resolution. CIT is limited by within-venue sampling,
-annual timestamp ties and changing reference coverage, and its bootstrap intervals are
-descriptive because cumulative observations are dependent. Forecast selection excludes
-weakly cited papers, and 38.6\% of short-history WSB fits reach parameter bounds. Citation
-networks are degenerate temporal networks (acyclic and without deletion), which is why
-several methods do not apply to them. Finally, each system contains several time scales
-\citep{holme2015modern}, so a window suited to one process may obscure another.
+The scope of the conclusions is limited by the data. Each network type is represented by a
+single dataset, the contact data cover only two days and therefore introduce boundary
+effects in tie lifetimes, and each system contains several time scales
+\citep{holme2015modern}, so a window suited to one process may obscure another. The
+reference models impose further limits. Timestamp permutation preserves the global
+timestamp distribution and therefore does not remove all nonstationarity, endpoint swapping
+is not guaranteed to sample uniformly from the admissible networks, and 20 realizations per
+model provide only a coarse tail resolution. Pooled burstiness and memory may also reflect
+heterogeneous edge activity, and reachability includes finite-horizon effects. The citation
+network is a degenerate temporal network, acyclic and without deletion, which excludes
+several methods. Its conclusions are additionally constrained by within-venue sampling,
+annual timestamp ties and changing reference coverage; the bootstrap intervals are
+descriptive because cumulative observations are dependent, and forecast selection excludes
+weakly cited papers, with 38.6\% of short-history fits reaching parameter bounds.

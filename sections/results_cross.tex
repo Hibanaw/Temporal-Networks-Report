@@ -1,37 +1,30 @@
 \subsection{Cross-network summary}\label{sec:r-cross}
-\Cref{tab:cross} lists one measure per hypothesis. Because the measures differ in units
-and interpretation, the table does not define a single sensitivity score for a network type:
-H1 is descriptive, H2--H6 are differences between the real value and the null mean in the
-units of the respective metric, and H7 is a conditional ratio of peak times.
+\Cref{tab:cross} reports the time-effect measure of each hypothesis together with the
+verdict reached in the preceding subsections. The measures differ in units and
+interpretation, so the table does not define a common sensitivity score for a network type.
+Temporal information is essential for every hypothesis in at least one network, but the
+direction and robustness of the effect vary with the system and, for H2, H3 and H7, with the
+event definition, window width, observation interval or reference model.
 
 \begin{table*}[t]
 \centering\small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrr@{}}
-\toprule ID & Measure & PS & CM & CIT \\
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{@{}llrrr>{\raggedright\arraybackslash}X@{}}
+\toprule ID & Measure & PS & CM & CIT & Verdict \\
 \midrule
-H1 & Density sensitivity (descriptive) & 3.262 & 5.411 & 1.798 \\
-H2 & $\Delta B$ vs P1 & 0.016 & 0.336 & -- \\
-H3 & $\Delta J$ vs P1 & $-0.147$ & 0.027 & -- \\
-H4 & $\Delta\alpha$ vs P3a & -- & -- & 0.713 \\
-H5 & $\Delta$ adjacent NMI vs P1 & $-0.096$ & 0.098 & -- \\
-H6 & $\Delta R$ vs P1 & $-0.134$ & $-0.120$ & -- \\
-H6 & $\Delta R$ vs P2 & $-0.134$ & $-0.031$ & -- \\
-H7 & Peak ratio vs P1 (conditional) & 1.160 & 0.888 & -- \\
-H7 & Peak ratio vs P2 (conditional) & 1.214 & 0.995 & -- \\
-\bottomrule\end{tabular*}
-\caption{Hypothesis-specific measures. H1 uses different grids and definitions (PS 5\,min--24\,h,
-CM 1\,h--30\,days, CIT trailing windows of 1/2/5/10 years), so its three values cannot be ranked,
-and density and mean total degree are algebraically redundant. H4 reports the attachment exponent
-only; the remaining H4 verdicts are stated separately. H5 uses 15-min windows for PS and 7-day
-windows for CM. H7 reports the primary setting and conditions on major outbreaks. A dash
-denotes inapplicability and not a zero effect.}
+H1 & Density sensitivity & 3.262 & 5.411 & 1.798 & Supported in all three networks \\
+H2 & $\Delta B$ vs P1 & 0.016 & 0.336 & -- & Burstiness supported in CM; small and definition-dependent in PS; memory not supported \\
+H3 & $\Delta J$ vs P1 & $-0.147$ & 0.027 & -- & Turnover supported in PS; CM persistence depends on width and interval \\
+H4 & $\Delta\alpha$ vs P3a & -- & -- & 0.713 & Attachment, ageing and densification supported; no diameter shrinkage or forecast advantage \\
+H5 & $\Delta$ adjacent NMI vs P1 & $-0.096$ & 0.098 & -- & Supported in PS; not supported in CM \\
+\multirow{2}{*}{H6} & $\Delta R$ vs P1 & $-0.134$ & $-0.120$ & -- & \multirow{2}{=}{Reachability restricted in both; rankings correlated but top nodes differ} \\
+ & $\Delta R$ vs P2 & $-0.134$ & $-0.031$ & -- & \\
+\multirow{2}{*}{H7} & Peak ratio vs P1 & 1.160 & 0.888 & -- & \multirow{2}{=}{Conditionally supported in PS; not supported in CM} \\
+ & Peak ratio vs P2 & 1.214 & 0.995 & -- & \\
+\bottomrule\end{tabularx}
+\caption{Time effects and verdicts. H1 is descriptive and uses different window grids per
+network (PS 5\,min--24\,h, CM 1\,h--30\,d, CIT 1--10 years), so its values cannot be ranked.
+H5 uses 15-min (PS) and 7-day (CM) windows. H7 reports the primary SIR setting and
+conditions on major outbreaks. A dash denotes inapplicability and not a zero effect.}
 \label{tab:cross}
 \end{table*}
-
-In summary, H1 holds in all three networks; H2 holds for burstiness, with a small PS excess
-that depends on the interval and the event definition; the CM H3 contrast is positive over
-the full period at widths up to 7 days but negative at 14 days and in both halves; H4 holds except for diameter shrinkage and forecast advantage; H5
-holds in PS but not in CM; and H6 shows lower reachability than both nulls under the
-finite-horizon protocol. H7 is conditionally supported in PS and not supported in CM, and
-neither the choice of reference model nor the conditioning on major outbreaks can be omitted
-from this statement.

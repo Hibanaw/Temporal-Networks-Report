@@ -76,7 +76,7 @@ or slower in the real network.
 
 \begin{table*}[t]
 \centering\small
-\begin{tabular}{@{}llrrrrrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrrrrrr@{}}
 \toprule & & \multicolumn{3}{c}{Final infected fraction} & \multicolumn{3}{c}{Major outbreak probability} & \multicolumn{2}{c}{Peak ratio} \\
 Dataset & $(\beta,D)$ & Real & P1 & P2 & Real & P1 & P2 & vs P1 & vs P2 \\
 \midrule
@@ -88,7 +88,7 @@ CM & (0.20, 336 h) & 0.256 & 0.250 & 0.276 & 0.825 & 0.791 & 0.799 & 0.888 & 0.9
 CM & (0.05, 336 h) & 0.026 & 0.013 & 0.025 & 0.215 & 0.082 & 0.192 & 0.934 & 0.991 \\
 CM & (0.50, 336 h) & 0.460 & 0.506 & 0.530 & 0.975 & 0.954 & 0.965 & 0.924 & 0.982 \\
 CM & (0.20, 72 h) & 0.074 & 0.043 & 0.066 & 0.555 & 0.342 & 0.428 & 0.720 & 1.013 \\
-\bottomrule\end{tabular}
+\bottomrule\end{tabular*}
 \caption{SIR outcomes for four $(\beta,D)$ settings per dataset (200 seeds per network, 20
 nulls per family). The first setting of each dataset is primary. The peak ratio is
 restricted to major outbreaks, whose populations can differ between real and null networks.}

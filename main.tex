@@ -7,6 +7,7 @@
 \usepackage[pagenumbers]{cvpr}
 
 \usepackage{multirow}
+\usepackage{tabularx}
 \usepackage{placeins}
 \usepackage[breaklinks=true,colorlinks,bookmarks=false,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \usepackage[capitalize]{cleveref}
@@ -26,15 +27,18 @@
 
 \title{How Much Does Time Matter?\\
 A Comparative Study in Real-World Temporal Networks}
-% CVPR-style author block for authors sharing one affiliation and one email domain:
-% names on one line, shared affiliation, then \{id1, id2, ...\}@domain.
+% Author block: five equally contributing authors, then the supervising author.
+% Names are written given name first; add email IDs to \emailids when available.
 \newcommand{\sharedaffiliation}{Faculty of Science, National University of Singapore}
 \newcommand{\emailids}{}
 \newcommand{\emaildomain}{u.nus.edu}
 \author{%
-  Author One, Author Two, Author Three, Author Four, Author Five\\
+  Pengzhen Deng\textsuperscript{*}\quad Tianqi Hu\textsuperscript{*}\quad
+  Zhangzhang Jiang\textsuperscript{*}\quad Linhua Shen\textsuperscript{*}\quad
+  Keshu Yuan\textsuperscript{*}\quad Ling Feng\\
   \sharedaffiliation\\
-  {\small\texttt{\{\emailids\}@\emaildomain}}
+  {\small\textsuperscript{*}Equal contribution}
+  % {\small\texttt{\{\emailids\}@\emaildomain}}
 }
 
 \begin{document}

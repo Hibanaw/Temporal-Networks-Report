@@ -13,31 +13,31 @@ whereas PS and CM have no growth process (M2c).
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}cl p{8cm} l l l ccc@{}}
+\begin{tabularx}{\textwidth}{@{}cl>{\raggedright\arraybackslash}Xllllccc@{}}
 \toprule
-Part & ID & Hypothesis & Source & Method & Null & PS & CM & CIT \\
+Part & ID & Hypothesis & Source & Method & Null & Time effect & PS & CM & CIT \\
 \midrule
 I   & H1 & Aggregation and window choice change structural conclusions
-           & \citep{krings2012effects,ribeiro2013quantifying} & M1 & -- & \checkmark & \checkmark & \checkmark \\
+           & \citep{krings2012effects,ribeiro2013quantifying} & M1 & -- & Window sensitivity & \checkmark & \checkmark & \checkmark \\
 \midrule
 II  & H2 & Activity is bursty and has memory
-           & \citep{goh2008burstiness} & M2a & P1 & \checkmark & \checkmark & \\
-    & H3 & Ties are repeated and persistent; the network turns over
-           & \citep{saramaki2014persistence} & M2b & P1 & \checkmark & \checkmark & \\
+           & \citep{goh2008burstiness} & M2a & P1 & $\Delta B$, $\Delta M$ & \checkmark & \checkmark & \\
+    & H3 & Ties are repeated and persistent, and the network turns over
+           & \citep{saramaki2014persistence} & M2b & P1 & $\Delta J$ & \checkmark & \checkmark & \\
 \midrule
-III & H4 & Growth follows preferential attachment with ageing; networks densify
-           & \citep{jeong2003measuring,wang2013quantifying,leskovec2005graphs} & M2c-1--4 & P3 & & & \checkmark \\
-    & H5 & Communities reorganise over time; the static partition hides this
-           & \citep{greene2010tracking,mucha2010community} & M4 & P1 & \checkmark & \checkmark & \\
+III & H4 & Growth follows preferential attachment with ageing, and networks densify
+           & \citep{jeong2003measuring,wang2013quantifying,leskovec2005graphs} & M2c-1--4 & P3 & $\Delta\alpha$, $a$ & & & \checkmark \\
+    & H5 & Communities reorganise over time, which the static partition hides
+           & \citep{greene2010tracking,mucha2010community} & M4 & P1 & $\Delta\,$NMI & \checkmark & \checkmark & \\
 \midrule
 IV  & H6 & Time ordering restricts reachability and changes centrality rankings
-           & \citep{holme2005network,pan2011path,kim2012temporal} & M3a, M3b & P1, P2 & \checkmark & \checkmark & \\
+           & \citep{holme2005network,pan2011path,kim2012temporal} & M3a, M3b & P1, P2 & $\Delta R$, $\tau$ & \checkmark & \checkmark & \\
     & H7 & Burstiness and temporal correlations slow down spreading
-           & \citep{karsai2011small} & M3c & P1, P2 & \checkmark & \checkmark & \\
+           & \citep{karsai2011small} & M3c & P1, P2 & $T_{\mathrm{real}}/\overline T_{\mathrm{null}}$ & \checkmark & \checkmark & \\
 \bottomrule
-\end{tabular*}
-\caption{Hypotheses tested in this work, with methods, reference models
-(\cref{sec:null}) and applicable datasets.}
+\end{tabularx}
+\caption{Hypotheses, sources, methods, reference models (\cref{sec:null}), time-effect
+measures (\cref{sec:time-effect}) and applicable datasets.}
 \label{tab:hypotheses}
 \end{table*}
 
@@ -171,15 +171,13 @@ P3, the reference model for citations, is described in \cref{sec:m-evolution}.
 \subsection{Measuring the effect of time}
 \label{sec:time-effect}
 Raw metrics cannot be compared across a contact network, a message network and a citation
-network. One measure is therefore defined per hypothesis: H1, the window sensitivity; H2,
-$B_{\mathrm{real}}-\overline{B}_{\mathrm{P1}}$ and $M_{\mathrm{real}}-\overline{M}_{\mathrm{P1}}$;
-H3, $J_{\mathrm{real}}-\overline{J}_{\mathrm{P1}}$; H4, the attachment exponent
-$\alpha$ relative to P3a and the densification exponent $a$; H5, the mean NMI between consecutive snapshots and between snapshots and
-the static partition; H6, the reachability ratio $R$ and Kendall's $\tau$ between static
-and temporal centrality; and H7, the peak-time ratio $T_{\mathrm{real}}/\overline T_{\mathrm{null}}$.
-Apart from H1, which has no reference model, and H7, which is a ratio, each effect is the
-difference $x_{\mathrm{real}}-\overline{x}_{\mathrm{null}}$ in the units of the
-underlying metric. A common difference operator does not place different hypotheses on a
+network, so each hypothesis is assigned one time-effect measure (\cref{tab:hypotheses}).
+For H2--H6 the effect is the difference $\Delta x=x_{\mathrm{real}}-\overline{x}_{\mathrm{null}}$
+between the empirical value and the mean over the stated reference model, expressed in the
+units of the underlying metric. H1 has no reference model and is summarised by the
+descriptive window sensitivity, H4 additionally reports the densification exponent $a$, and
+H7 is summarised by the ratio $T_{\mathrm{real}}/\overline T_{\mathrm{null}}$ of the times to
+the prevalence peak. A common difference operator does not place different hypotheses on a
 common scale, and quantities that are invariant under P1 are reported as descriptive values
 and not as evidence from a null test.
 
