@@ -16,7 +16,7 @@ Recreate numerical sections and figures from the experiment checkout:
 python scripts/make_summary_table.py
 python scripts/summarize_robustness.py
 python scripts/plot_supplement.py
-python scripts/sync_report_results.py --report ../Temporal-Networks-Report
+# report sections are edited directly; sync_report_results.py is retired
 ```
 
 Compile from this directory:
