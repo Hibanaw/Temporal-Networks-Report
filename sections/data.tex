@@ -29,12 +29,16 @@ The primary-school data \citep{stehle2011high,gemmetto2014mitigation} were colle
 the SocioPatterns collaboration with wearable proximity sensors over two school days. A
 contact is recorded when two individuals are face to face within approximately 1.5\,m for
 at least 20\,s. Each individual carries a class label, which serves as ground truth for
-community detection. The data are released under CC BY-NC-SA.
+community detection. The data are released under CC BY-NC-SA 3.0. Activity is confined to
+school hours (approximately 08:30--17:20), with up to 2,168 contact records per 10\,min and
+no records overnight.
 
 \paragraph{Online communication.}
 CollegeMsg \citep{panzarasa2009patterns} contains time-stamped private messages between
-1\,899 users of an online student community over 193 days at 1\,s resolution. Edges are
-directed, and no node labels are available.
+1\,899 users of an online student community over 193 days at 1\,s resolution; removing
+37 duplicate triples leaves 59,798 messages. Edges are directed, and no node labels are
+available. Activity is strongly nonstationary: 37,680 messages (63\%) fall in May 2004, and
+monthly volume declines steadily thereafter to 816 messages in October.
 
 \paragraph{Scientific publications.}
 The citation network is an induced subgraph of AMiner DBLP-Citation V14

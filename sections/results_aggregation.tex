@@ -2,23 +2,27 @@
 \label{sec:r-aggregation}
 \paragraph{Contact and messaging networks.}
 Every structural metric changes substantially with the window width in both networks
-(\cref{tab:a-windows}, \cref{fig:agg-window}a,b). Density, clustering and LCC fraction
-increase with the width, with sensitivities between 1.6 and 3.9; the number of weak
-components in CM varies least (0.364).
+(\cref{tab:a-windows}, \cref{fig:agg-window}a,b). Wider windows combine interactions that
+occurred at different times and therefore increase density, mean degree, clustering and
+connectivity while reducing the number of components. In PS the mean LCC fraction rises
+from 11.6\% in 5-min windows to 56.3\% in 8-h windows and reaches 99.6\% in the single
+complete 24-h window. In CM it rises from 0.24\% at 1\,h to 35.8\% at 30\,days (six complete
+windows). The number of components in CM varies least (sensitivity 0.398), because most
+users remain isolated in all but the widest windows.
 
 \begin{table}[t]
 \centering\small
 \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrrr@{}}
 \toprule Metric & PS & CM & CIT \\
 \midrule
-Density (= mean total degree) & 3.359 & 3.862 & 1.798 \\
-Clustering & 1.628 & 3.909 & 2.361 \\
-Weak components & 1.696 & 0.364 & -- \\
-LCC fraction & 2.066 & 2.912 & 1.114 \\
+Density (= mean total degree) & 3.262 & 5.411 & 1.798 \\
+Clustering & 1.578 & 5.671 & 2.361 \\
+Components & 1.712 & 0.398 & -- \\
+LCC fraction & 2.096 & 4.115 & 1.114 \\
 \bottomrule\end{tabular*}
-\caption{Window sensitivity (relative range over the window grid: PS 5\,min--1\,day,
-CM 1\,h--30\,days, CIT trailing windows of 1--10 years averaged over end years). The values
-are descriptive and are not tested against a reference model.}\label{tab:a-windows}
+\caption{Window sensitivity (relative range of complete-window means over the grid: PS
+5\,min--24\,h, CM 1\,h--30\,days; CIT trailing windows of 1--10 years averaged over end
+years). The values are descriptive and are not tested against a reference model.}\label{tab:a-windows}
 \end{table}
 
 \begin{figure*}[t]
@@ -41,10 +45,17 @@ correlation. Over trailing windows of 1--10 years, the sensitivities are 1.798 f
 windows connect a larger fraction of papers and admit triangles spanning several years,
 which a single final aggregate cannot reveal.
 
+\paragraph{Observation halves.}
+The same directions hold at every comparable width in both halves of both networks. On
+the common grid, the PS sensitivities are stable (density 2.503 over the full period
+against 2.551 and 2.518 in the halves; clustering 1.394 against 1.470 and 1.487). The
+magnitude of connectivity in CM, however, depends on the period: at 30\,days the mean LCC
+fraction is 53.3\% in the first half and 18.6\% in the second (three complete windows each),
+which coincides with a decline in activity from 53,163 to 6,635 messages.
+
 \paragraph{Verdict on H1.}
 H1 is supported in all three networks as a representation effect. The numerical
 sensitivity depends on the window grid, the window alignment, the inclusion of inactive
 nodes and the observation span, so the values in \cref{tab:a-windows} do not rank the
-network types. The dependence on the observation interval is illustrated by the PS
-clustering sensitivity, which decreases from 1.628 over the full period to 0.921 and 0.959
-in the two halves.
+network types. Connectivity after aggregation also discards event order; whether
+aggregated paths can be traversed in time is examined under H6.

@@ -50,16 +50,23 @@ cumulative network $G(\le t)$ contains all events up to $t$.
 
 \subsection{Aggregation and time windows (M1)}
 \label{sec:m-aggregation}
-For each window width $\Delta t$ on a grid (PS: 5\,min to 1\,day; CM: 1\,h to 30\,days),
-non-overlapping snapshots are anchored at the first observed event. Density, mean total
-degree, clustering coefficient, number of weak components and the fraction of nodes in
-the largest weak component (LCC) are averaged over the snapshots. Every node of the
-selected period is retained in every window, and empty windows and the final partial
-window are included, so that overnight inactivity in PS enters the averages. Clustering
-of CM is computed on the undirected projection, whereas density and degree retain message
-direction. The \emph{window sensitivity} of a metric $m$ is $(\max m-\min m)/\overline m$
-over the window-averaged values on the grid. Under a fixed node set, density and mean total
-degree are proportional and therefore constitute a single effect. For CIT, annual and
+The observation period is divided into non-overlapping, left-closed windows of width
+$\Delta t$, starting at the first event and ending one timestamp resolution after the last
+event. Widths are 5, 15 and 30\,min and 1, 2, 4, 8 and 24\,h for PS, and 1, 3, 6 and
+12\,h and 1, 3, 7 and 30\,days for CM. Each distinct pair with at least one event in a
+window forms one unweighted edge, undirected in PS and directed from sender to recipient
+in CM. Every snapshot contains the full node set of the dataset (242 and 1\,899 nodes),
+including isolates, and empty windows are retained, so that overnight inactivity in PS
+enters the averages. For each snapshot, density, mean total degree, mean local clustering
+(including zeros), the number of components and the fraction of nodes in the largest
+component (LCC) are computed. CM uses in- plus out-degree, directed clustering
+\citep{fagiolo2007clustering} and weakly connected components. Metrics are averaged with
+equal weight over the complete windows of each width; the shorter final window is
+evaluated separately as a boundary check. The \emph{window sensitivity} of a metric $m$ is
+$(\max m-\min m)/\overline{|m|}$ over the window-averaged values on the grid. Under a fixed
+node set, density and mean total degree are proportional and therefore constitute a single
+effect. Halves of the observation period are compared on the widths that have complete
+windows in both halves, which excludes the 24-h width for PS. For CIT, annual and
 cumulative networks are compared, together with trailing windows (\cref{sec:m-evolution}).
 Aggregation can also introduce paths that cannot be traversed in time: if $c$--$d$ occurs
 before $a$--$b$ and $b$--$c$, the static path $a$--$b$--$c$--$d$ is not time-respecting
