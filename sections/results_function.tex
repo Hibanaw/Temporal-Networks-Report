@@ -6,7 +6,24 @@ essentially all pairs; the mean latency is 3.39 h against 0.15 h and 0.12 h
 mean latency exceeds the null values by approximately 5\%. Both networks therefore have
 lower reachability than their randomized counterparts. Because late start times have a
 shorter remaining horizon and PS contacts follow the school timetable, $R$ is not a purely
-topological quantity; moreover, P2 alters the topology as well as the timing.
+topological quantity; moreover, P2 alters the topology as well as the timing. The start-time
+profile makes this explicit (\cref{fig:function}a,b). In PS, real reachability is close to
+that of the nulls for every start on the first day ($R\ge0.986$) and falls on the second
+day from 0.959 at 09:00 to 0.442 at 16:00, as the remaining school day shortens. In CM,
+$R$ declines with the start time under all three models; the real network lies below P1
+at every start with nonzero reachability and below P2 for the first 13 of 20 starts, after
+which all three values are below 0.05.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\linewidth]{d_function.pdf}
+\caption{Time ordering and network function. (a, b) Reachability ratio $R$ for each start
+time; P1 and P2: mean $\pm$ SD of 20 networks. (c, d) Mean infectious fraction after the
+seed, averaged over major outbreaks at the primary SIR setting (200 seeds; real network and
+five P1 and five P2 networks, a subset of the 20 per model used for the ratios); dotted lines mark the peaks
+of the mean curves, which differ from the mean per-run peak times used for the ratios.}
+\label{fig:function}
+\end{figure*}
 
 \begin{table}[t]
 \centering\small
@@ -15,7 +32,7 @@ topological quantity; moreover, P2 alters the topology as well as the timing.
 \midrule
 PS & Reachability $R$ & 0.866 & 1.000 & 1.000 \\
 PS & Mean latency (h) & 3.390 & 0.152 & 0.124 \\
-CM & Reachability & 0.140 & 0.223 & 0.165 \\
+CM & Reachable fraction & 0.140 & 0.223 & 0.165 \\
 CM & Reachability $R$ & 0.205 & 0.326 & 0.237 \\
 CM & Mean latency (h) & 948.993 & 906.718 & 912.285 \\
 \bottomrule\end{tabular*}
@@ -67,9 +84,12 @@ In PS the final infected fraction is smaller than under both nulls in all four s
 the transmission probability: 1.000 at $\beta=0.02$, 1.160 at 0.05 and 1.311 at 0.10 for a
 four-hour infectious duration (ratios relative to P1). The qualifying populations differ
 (major outbreaks occur for 0.860 of the real seeds against 0.908 under P1), so the peak
-comparisons are not paired-seed estimates. In CM the peak occurs earlier than under P1 in
-all full-period settings (ratios 0.72--0.94) and is approximately unchanged relative to P2
-(0.98--1.01). The choice of timing metric also matters: at $\beta=0.5$ and 14 days the
+comparisons are not paired-seed estimates. The mean prevalence curves
+(\cref{fig:function}c) show the same pattern: the real PS epidemic peaks lower (infectious
+fraction 0.58 against 0.81 under P1 and 0.87 under P2) and later, with a longer tail. In CM
+the peak occurs earlier than under P1 in all full-period settings (ratios 0.72--0.94) and
+is approximately unchanged relative to P2 (0.98--1.01), as the mean curves also show
+(\cref{fig:function}d). The choice of timing metric also matters: at $\beta=0.5$ and 14 days the
 peak ratio to P1 is 0.924, whereas the time to half of each trajectory's final size has a
 ratio of 1.061. These opposing signs preclude a general statement that spreading is faster
 or slower in the real network.

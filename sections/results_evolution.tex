@@ -105,6 +105,12 @@ flat (class NMI $0.86\pm0.002$), so the decline is attributable to the timing of
 and not to the identity of the contacting pairs. Nor is it algorithmic noise: two Leiden runs
 on the same window agree with NMI 0.98 on average. Averaged over the day, real snapshots agree
 less with the static partition than P1 snapshots (0.72 against $0.94\pm0.003$).
+The contact networks themselves show the mechanism (\cref{fig:ps-snapshots}). During lessons,
+6--11\% of the contact records in a 15-min window join different classes; at 12:30 the
+share is 65\%, and fewer than half of the individuals are active. In the static aggregate,
+27\% of the records are between classes, so the heavy within-class weight recovers the
+classes but conceals that most between-class contacts occur in a short midday interval.
+
 
 \begin{figure*}[t]
 \centering
@@ -112,6 +118,17 @@ less with the static partition than P1 snapshots (0.72 against $0.94\pm0.003$).
 \caption{Snapshot communities in PS (15-min windows, $\gamma=1$): NMI with the classes (top)
 and with the static partition (bottom). P1: mean $\pm$ SD of 20 samples.}
 \label{fig:m4-ps}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\linewidth]{e_ps_snapshots.pdf}
+\caption{PS contact networks in 15-min windows during a lesson (a), the lunch break (b) and
+an afternoon lesson (c), and the static aggregate of both days (d). Nodes are grouped by
+class with teachers in the centre; grey nodes are inactive in the window. Navy:
+within-class pairs; orange: pairs between different classes or with teachers. In (d), line
+opacity and width increase with the number of contact records.}
+\label{fig:ps-snapshots}
 \end{figure*}
 
 \paragraph{CollegeMsg.}

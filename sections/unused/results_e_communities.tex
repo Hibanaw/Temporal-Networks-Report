@@ -4,17 +4,19 @@
 \centering
 \includegraphics[width=\linewidth]{e_m4_ps_timeseries.pdf}
 \caption{Snapshot communities in PS (15-min windows, $\gamma=1$). Rows: NMI of each
-snapshot partition with the classes, with the previous window and with the static
-partition. Blue: real; orange: P1 (mean $\pm$ sd, 20 samples); green dotted: same window
-partitioned with another seed (noise floor).}
+snapshot partition with the classes and with the static partition. Blue: real; orange:
+P1 (mean $\pm$ sd, 20 samples). The NMI with the previous window is discussed in the text,
+since its comparison with P1 is not robust across window widths in PS (\cref{fig:m4-sens}).}
 \label{fig:m4-ps}
 \end{figure*}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{e_m4_cm_timeseries.pdf}
-\caption{Snapshot communities in CM (7-day windows, $\gamma=1$); encoding as in
-\cref{fig:m4-ps}. CM has no ground-truth labels.}
+\caption{Snapshot communities in CM (7-day windows, $\gamma=1$). Rows: NMI with the
+previous window and with the static partition; colours as in \cref{fig:m4-ps}. Green
+dotted: same window partitioned with another seed (noise floor). CM has no ground-truth
+labels.}
 \label{fig:m4-cm}
 \end{figure}
 
